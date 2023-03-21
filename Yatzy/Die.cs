@@ -6,9 +6,15 @@ public class Die : IDie
 {
     public bool IsHeld { get; set; }
     public int DieValue { get; set; }
+    private readonly IRandomNumberGenerator _rng;
 
-    public Die(int value)
+    public Die(IRandomNumberGenerator rng)
     {
-        DieValue = value;
+        _rng = rng;
+    }
+
+    public int RollDie()
+    {
+        throw new NotImplementedException();
     }
 }
