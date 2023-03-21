@@ -6,53 +6,75 @@ namespace YatzyTests;
 
 public class DiceTests
 {
-    private readonly Mock<IDiceRoller> _mockDiceRoller;
-    private readonly Mock<IDie> _mockDie;
+
+    private readonly Mock<IRandomNumberGenerator> _mockRNG;
+    private readonly DiceRoll _diceRoller;
+    private readonly Die _die;
+    private readonly Die _dieNonMock;
 
     public DiceTests()
     {
-        _mockDiceRoller = new Mock<IDiceRoller>();
-        _mockDie = new Mock<IDie>();
+        _mockRNG = new Mock<IRandomNumberGenerator>();
+        _diceRoller = new DiceRoll();
+        _die = new Die(_mockRNG.Object);
+        _dieNonMock = new Die(new RNG());
     }
     
     [Fact]
-    public void Die_RollDice_ShouldReturnNumberBetweenOneAndSixInclusive()
+    public void Die_RollDice_ShouldReturnWhatRNGSpitsOut() 
     {
         
-        //Arrange
-        _mockDie.Setup(die => die.RollDie()).Returns(1);
+        _mockRNG.Setup(x => x.GetRandomNumber()).Returns(1);
 
-        //Act
-        var actualRoll = _mockDie.Object.RollDie();
+        var actualRoll = _die.RollDie();
         
         Assert.Equal(1, actualRoll);
+    }
+   [Fact] 
+    public void Die_WhenCreated_ShouldReturnNumberBetweenOneAndSixInclusive() 
+    {
+        
+        var outputValue = _dieNonMock.DieValue;
+        
+        Assert.InRange(outputValue, 1, 6);
+    }
+    
+    [Fact]
+    public void DiceRoll_GetDiceRolls_ShouldReturnFiveDiceValues()
+    {
+
+        var arrayOfDiceRolls = _diceRoller.GetDiceRolls();
+        
+        Assert.Equal(5, arrayOfDiceRolls.Length);
 
     }
     
     [Fact]
-    public void DiceRoller_GetDiceRolls_ShouldReturnFiveDiceValues()
+    public void DiceRoll_RollDice_ShouldReturnNewValues()
     {
-        
-        //Arrange
-        var expectedDiceRolls = new int[] { 1, 2, 3, 4, 5 };
-        _mockDiceRoller.Setup(die => die.GetDiceRolls()).Returns(new int[] {1, 2, 3, 4, 5});
 
-        //Act
-        var actualDiceRolls = _mockDiceRoller.Object.GetDiceRolls();
+        var oldArrayOfDiceRolls = _diceRoller.GetDiceRolls();
+        _diceRoller.RollDice();
+        var newArrayOfDiceRolls = _diceRoller.GetDiceRolls();
         
-        Assert.Equal(expectedDiceRolls, actualDiceRolls);
+        Assert.NotEqual(oldArrayOfDiceRolls, newArrayOfDiceRolls);
 
     }
-    
+
     [Fact]
-    public void DiceRoller_RollDice_ShouldRollAllFiveDie()
+    public void DiceRoll_RollDice_ShouldNotRollDieWhichAreHeld()
     {
+        var arrayOfDiceRolls = _diceRoller.GetDiceRolls();
+        var originalFirstValue = arrayOfDiceRolls[0];
+        var originalLastValue = arrayOfDiceRolls[4];
         
-        _mockDiceRoller.Setup(die => die.RollDice());
-
-        _mockDiceRoller.Object.RollDice();
+        _diceRoller.HoldDice(new[] {0, 4});
+        _diceRoller.RollDice();
+        var actualFirstValue = _diceRoller.Dice[0].DieValue;
+        var actualLastValue = _diceRoller.Dice[4].DieValue;
         
-        _mockDiceRoller.Verify(diceRoller => diceRoller.RollDice(), Times.Once);
-
+        Assert.Equal(originalFirstValue, actualFirstValue);
+        Assert.Equal(originalLastValue, actualLastValue);
     }
+ 
 }

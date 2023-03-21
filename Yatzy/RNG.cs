@@ -6,6 +6,7 @@ public class RNG : IRandomNumberGenerator
 {
     public int GetRandomNumber()
     {
-        throw new NotImplementedException();
+        Random rnd = new Random();
+        return rnd.Next(1, 7);
     }
 }

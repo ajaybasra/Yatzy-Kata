@@ -11,10 +11,13 @@ public class Die : IDie
     public Die(IRandomNumberGenerator rng)
     {
         _rng = rng;
+        IsHeld = false;
+        RollDie();
     }
 
     public int RollDie()
     {
-        throw new NotImplementedException();
+        DieValue = _rng.GetRandomNumber();
+        return DieValue;
     }
 }

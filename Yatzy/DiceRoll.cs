@@ -8,15 +8,47 @@ public class DiceRoll : IDiceRoller
 
     public DiceRoll()
     {
+        Dice = new List<Die>()
+        {
+            new (new RNG()),
+            new (new RNG()),
+            new (new RNG()),
+            new (new RNG()),
+            new (new RNG())
+        };
     }
     
     public void RollDice()
     {
-        throw new NotImplementedException();
+        foreach (var die in Dice)
+        {
+            if (!die.IsHeld)
+            {
+                die.DieValue = die.RollDie();
+            }
+            else
+            {
+                die.IsHeld = false;
+            }
+        }
     }
 
     public int[] GetDiceRolls()
     {
-        throw new NotImplementedException();
+        var arrayOfDice = new List<int>();
+        foreach (var die in Dice) // convert to linq expression
+        {
+            arrayOfDice.Add(die.DieValue);
+        }
+
+        return arrayOfDice.ToArray();
+    }
+    
+    public void HoldDice(int[] diceIndices)
+    {
+        foreach (var diceIndex in diceIndices)
+        {
+            Dice[diceIndex].IsHeld = true;
+        }
     }
 }
