@@ -3,7 +3,6 @@ namespace Yatzy;
 public class Player
 {
     public int Score { get; set; }
-    public int NumberOfRollsLeft { get; private set; }
     public readonly DiceRoll DiceRolls;
 
     public Player(DiceRoll diceRolls )
@@ -13,7 +12,7 @@ public class Player
 
     public void StartTurn()
     {
-        NumberOfRollsLeft = 3;
+        DiceRolls.setNumberOfRolls(3);
         
         foreach (var die in DiceRolls.Dice)
         {
@@ -21,15 +20,6 @@ public class Player
         }
         
         DiceRolls.RollDice();
-    }
-    public void DecrementRollsLeft()
-    {
-        NumberOfRollsLeft--;
-    }
-
-    public bool IsRollsLeft()
-    {
-        return NumberOfRollsLeft > 0;
     }
 
     public void AddToPlayScore(int points)

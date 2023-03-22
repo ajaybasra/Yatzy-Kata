@@ -20,23 +20,14 @@ public class PlayerTests
     }
 
     [Fact]
-    public void DecrementRollsLeft_ShouldSubtractFromPlayerRolls_WhenCalled()
-    {
-        _player.StartTurn();
-        _player.DecrementRollsLeft();
-        
-        Assert.Equal(2, _player.NumberOfRollsLeft);
-    }
-
-    [Fact]
     public void StartTurn_ShouldResetIsHeldToFalseAndRollsToThree_WhenNewTurn()
     {
         _player.StartTurn();
-        _player.DecrementRollsLeft();
+        _player.DiceRolls.DecrementRollsLeft();
         _player.DiceRolls.HoldDice(new int[] {0,1});
         _player.StartTurn();
         
-        Assert.Equal(3, _player.NumberOfRollsLeft);
+        Assert.Equal(3, _player.DiceRolls.NumberOfRollsLeft);
         Assert.False(_player.DiceRolls.Dice[0].IsHeld);
         Assert.False(_player.DiceRolls.Dice[1].IsHeld);
     }
@@ -44,13 +35,13 @@ public class PlayerTests
     [Fact]
     public void IsRollsLeft_ShouldReturnTrueIfRollsLeftElseShouldReturnFalse_WhenCalled()
     {
-        _player.DecrementRollsLeft();
-        _player.DecrementRollsLeft();
-        _player.DecrementRollsLeft();
-        Assert.False(_player.IsRollsLeft());
+        _player.DiceRolls.DecrementRollsLeft();
+        _player.DiceRolls.DecrementRollsLeft();
+        _player.DiceRolls.DecrementRollsLeft();
+        Assert.False(_player.DiceRolls.IsRollsLeft());
         
         _player.StartTurn();
-        Assert.True(_player.IsRollsLeft());
+        Assert.True(_player.DiceRolls.IsRollsLeft());
     }
 
     [Fact]

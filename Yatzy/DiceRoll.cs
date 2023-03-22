@@ -5,9 +5,11 @@ namespace Yatzy;
 public class DiceRoll : IDiceRoller
 {
     public List<Die> Dice { get; }
+    public int NumberOfRollsLeft { get; private set; }
 
     public DiceRoll()
     {
+        DecrementRollsLeft();
         Dice = new List<Die>()
         {
             new (new RNG()),
@@ -20,6 +22,7 @@ public class DiceRoll : IDiceRoller
     
     public void RollDice()
     {
+        DecrementRollsLeft();
         foreach (var die in Dice)
         {
             if (!die.IsHeld)
@@ -63,5 +66,20 @@ public class DiceRoll : IDiceRoller
         {
             Dice[diceIndex].IsHeld = true;
         }
+    }
+    
+    public void DecrementRollsLeft()
+    {
+        NumberOfRollsLeft--;
+    }
+
+    public bool IsRollsLeft()
+    {
+        return NumberOfRollsLeft > 0;
+    }
+
+    public void setNumberOfRolls(int roles)
+    {
+        NumberOfRollsLeft = roles;
     }
 }

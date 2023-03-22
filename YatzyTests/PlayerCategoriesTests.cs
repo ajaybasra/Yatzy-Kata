@@ -20,7 +20,7 @@ public class PlayerCategoriesTests
     {
         _playerCategories.PlaceRollsInCategory(Category.Chance, new int[] { 1, 2, 3, 4, 5 });
         
-        Assert.Equal(14, _playerCategories.listOfCategories.Count());
+        Assert.Equal(14, _playerCategories.ListOfCategories.Count());
     }
     public static IEnumerable<object[]> GetCategoryAndDiceRolls()
     {
@@ -47,7 +47,7 @@ public class PlayerCategoriesTests
     {
         Assert.False(_playerCategories.IsCategoriesEmpty());
         
-        _playerCategories.listOfCategories.Clear();
+        _playerCategories.ListOfCategories.Clear();
         Assert.True(_playerCategories.IsCategoriesEmpty());
     }
 }
