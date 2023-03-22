@@ -46,20 +46,7 @@ public class DiceRoll : IDiceRoller
 
         return arrayOfDice.ToArray();
     }
-    
-    public string GetDiceRollsAsString()
-    {
-        var diceRolls = GetDiceRolls();
-        
-        var diceRollsString = "";
-        
-        for (var i = 0; i < diceRolls.Length; i++)
-        {
-            diceRollsString += $"Dice {i}: {diceRolls[i]}\n";
-        }
-        return diceRollsString;
-    }
-    
+
     public void HoldDice(int[] diceIndices)
     {
         foreach (var diceIndex in diceIndices)
