@@ -20,14 +20,14 @@ public class PlayerTests
     }
 
     [Fact]
-    public void StartTurn_ShouldResetIsHeldToFalseAndRollsToThree_WhenNewTurn()
+    public void StartTurn_ShouldResetIsHeldToFalseAndRolls_WhenNewTurn()
     {
         _player.StartTurn();
         _player.DiceRolls.DecrementRollsLeft();
         _player.DiceRolls.HoldDice(new int[] {0,1});
         _player.StartTurn();
         
-        Assert.Equal(3, _player.DiceRolls.NumberOfRollsLeft);
+        Assert.Equal(2, _player.DiceRolls.NumberOfRollsLeft);
         Assert.False(_player.DiceRolls.Dice[0].IsHeld);
         Assert.False(_player.DiceRolls.Dice[1].IsHeld);
     }
