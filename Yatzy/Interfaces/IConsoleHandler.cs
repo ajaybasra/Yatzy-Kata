@@ -4,7 +4,7 @@ namespace Yatzy.Interfaces;
 
 public interface IConsoleHandler
 {
-    public void ShowIntro();
+    public ConsoleKey ShowIntro();
 
     public bool WantToQuit(int completedRounds);
 

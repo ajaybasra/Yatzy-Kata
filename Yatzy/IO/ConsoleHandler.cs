@@ -13,11 +13,11 @@ public class ConsoleHandler : IConsoleHandler
         _reader = reader;
         _writer = writer;
     }
-    public void ShowIntro()
+    public System.ConsoleKey ShowIntro()
     {
         _writer.WriteLine("🎲 Welcome to Yatzy! 🎲");
-        _writer.Write("Press space to play!");
-        while (_reader.ReadKey().Key != ConsoleKey.Spacebar){}
+        _writer.Write("Press any key to play!");
+        return _reader.ReadKey().Key;
     }
 
     public bool WantToQuit(int remainingRounds)
