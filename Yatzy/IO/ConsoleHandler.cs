@@ -13,20 +13,21 @@ public class ConsoleHandler : IConsoleHandler
         _reader = reader;
         _writer = writer;
     }
-    public void Intro()
+    public void ShowIntro()
     {
         _writer.WriteLine("🎲 Welcome to Yatzy! 🎲");
-        _writer.WriteLine("Press space to play!");
+        _writer.Write("Press space to play!");
         while (_reader.ReadKey().Key != ConsoleKey.Spacebar){}
     }
 
-    public bool WantToQuit(int completedRounds)
+    public bool WantToQuit(int remainingRounds)
     {
-        var currentRound = completedRounds + 1;
-        var remainingRounds = 15 - completedRounds;
+        var currentRound = 15 - remainingRounds + 1;
+        _writer.WriteLine("");
+        _writer.WriteLine("");
         _writer.WriteLine($"Your current round is {currentRound}.");
-        _writer.WriteLine($"There are {remainingRounds} left before the game finishes.");
-        _writer.WriteLine("Press [q] if you want to quit, or any other key to keep playing.");
+        _writer.WriteLine($"There are {remainingRounds - 1} rounds left before the game finishes.");
+        _writer.Write("Press [q] if you want to quit, or any other key to keep playing.");
         return _reader.ReadKey().Key == ConsoleKey.Q;
 
     }
@@ -39,17 +40,19 @@ public class ConsoleHandler : IConsoleHandler
         {
             diceRollsString += $"Dice {i}: {diceRolls[i]}\n";
         }
+        _writer.WriteLine("");
+        _writer.WriteLine("");
         _writer.WriteLine("Below are the dice which you have rolled:");
         _writer.WriteLine(diceRollsString);
     }
 
     public bool WantToReroll()
     {
-        _writer.WriteLine("If you would like to reroll enter [r], otherwise to continue press any other key.");
+        _writer.Write("If you would like to reroll enter [r], otherwise to continue press any other key.");
         return _reader.ReadKey().Key == ConsoleKey.R;
     }
 
-    public bool AskIfHold()
+    public bool WantToHold()
     {
         _writer.WriteLine("Would you like to hold any dice? Press [y] to hold or any other key to continue");
         return _reader.ReadKey().Key == ConsoleKey.Y;
@@ -64,26 +67,33 @@ public class ConsoleHandler : IConsoleHandler
 
     public void ShowCategories(List<Category> categories)
     {
+        _writer.WriteLine("");
+        _writer.WriteLine("");
         _writer.WriteLine("Below are the available categories:");
         for (int i = 0; i < categories.Count; i++)
         {
             _writer.WriteLine($"Category {i + 1}: {categories[i].ToString()}");
         }
+        _writer.WriteLine("");
     }
 
     public int GetCategory()
     {
-        _writer.WriteLine("Enter the corresponding number for the category you would like to play: ");
+        _writer.Write("Enter the corresponding number for the category you would like to play: ");
         var userInput = _reader.ReadLine();
-        return int.Parse(userInput);
+        var chosenCategory = int.Parse(userInput) - 1;
+        return chosenCategory;
     }
 
     public void ShowScore(int score)
     {
-        _writer.WriteLine($"Your current score is {score}, keep it up!");
+        _writer.WriteLine("");
+        _writer.Write($"Your current score is {score}, keep it up!");
     }
     public void ShowOutro(int score)
     {
+        _writer.WriteLine("");
+        _writer.WriteLine("");
         _writer.WriteLine($"GG! Your final score was {score}, hope you had fun!");
     }
 };

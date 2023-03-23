@@ -12,7 +12,7 @@ public class PlayerCategories
         _categoryScoreCalculator = categoryScoreCalculator;
     }
     
-    public int? PlaceRollsInCategory(Category category, int[] diceRolls) 
+    public int PlaceRollsInCategory(Category category, int[] diceRolls) 
     {
         switch (category)
         {
@@ -62,12 +62,17 @@ public class PlayerCategories
                 ListOfCategories.Remove(Category.FullHouse);
                 return _categoryScoreCalculator.GetFullHouseScore(diceRolls);
             default:
-                return null;
+                return 0;
         }
     }
 
     public bool IsCategoriesEmpty()
     {
         return ListOfCategories.Count == 0;
+    }
+
+    public int getCategoriesListSize()
+    {
+        return ListOfCategories.Count;
     }
 }

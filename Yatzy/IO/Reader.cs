@@ -11,6 +11,6 @@ public class Reader : IReader
 
     public ConsoleKeyInfo ReadKey()
     {
-        return Console.ReadKey();
+        return Console.ReadKey(true); // set to true so that key isn't displayed to console
     }
 }
