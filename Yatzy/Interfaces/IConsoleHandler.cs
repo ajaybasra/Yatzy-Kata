@@ -4,12 +4,12 @@ namespace Yatzy.Interfaces;
 
 public interface IConsoleHandler
 {
-    public ConsoleKey ShowIntro();
+    public void ShowIntro();
 
     public bool WantToQuit(int completedRounds);
 
     public void ShowDiceRolls(int[] diceRolls);
-    public bool WantToReroll();
+    public bool WantToReRoll();
 
     public bool WantToHold();
 

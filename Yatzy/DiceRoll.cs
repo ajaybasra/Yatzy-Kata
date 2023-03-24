@@ -7,16 +7,16 @@ public class DiceRoll : IDiceRoller
     public List<Die> Dice { get; }
     public int NumberOfRollsLeft { get; private set; }
 
-    public DiceRoll()
+    public DiceRoll(IRandomNumberGenerator rng)
     {
         DecrementRollsLeft();
         Dice = new List<Die>()
         {
-            new (new RNG()),
-            new (new RNG()),
-            new (new RNG()),
-            new (new RNG()),
-            new (new RNG())
+            new (rng),
+            new (rng),
+            new (rng),
+            new (rng),
+            new (rng)
         };
     }
     

@@ -15,7 +15,7 @@ public class DiceTests
     public DiceTests()
     {
         _mockRNG = new Mock<IRandomNumberGenerator>();
-        _diceRoller = new DiceRoll();
+        _diceRoller = new DiceRoll(new RNG());
         _die = new Die(_mockRNG.Object);
         _dieNonMock = new Die(new RNG());
     }

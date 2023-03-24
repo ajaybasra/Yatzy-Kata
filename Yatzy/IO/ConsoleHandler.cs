@@ -13,11 +13,11 @@ public class ConsoleHandler : IConsoleHandler
         _reader = reader;
         _writer = writer;
     }
-    public ConsoleKey ShowIntro()
+    public void ShowIntro()
     {
         _writer.WriteLine("🎲 Welcome to Yatzy! 🎲");
         _writer.Write("Press any key to play!");
-        return _reader.ReadKey().Key;
+        _reader.ReadKey();
     }
 
     public bool WantToQuit(int remainingRounds)
@@ -45,7 +45,7 @@ public class ConsoleHandler : IConsoleHandler
         _writer.WriteLine(diceRollsString);
     }
 
-    public bool WantToReroll()
+    public bool WantToReRoll()
     {
         _writer.Write("If you would like to reroll enter [r], otherwise to continue press any other key.");
         return _reader.ReadKey().Key == ConsoleKey.R;

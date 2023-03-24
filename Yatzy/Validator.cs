@@ -2,7 +2,7 @@ using Yahtzy.Enums;
 
 namespace Yatzy;
 
-public abstract class Validator
+public static class Validator 
 {
     public static bool ChosenDiceToHoldAreValid(string diceToHold)
     {
@@ -10,23 +10,10 @@ public abstract class Validator
         
         var arrayOfDiceToHold = diceToHold.Split(",");
         
-        if (arrayOfDiceToHold.All(x => x.All(char.IsDigit)))
-        {
-            if (arrayOfDiceToHold.All(x => int.Parse(x) is > 1 and <= 6))
-            {
-                return true;
-            }
-        }
-
-        return false;
+        return arrayOfDiceToHold.All(x => x.All(char.IsDigit)) && arrayOfDiceToHold.All(x => int.Parse(x) is > 0 and <= 5); //could have methods to deal with conditions, makes more readable
     }
     public static bool ChosenCategoryIsValid(string chosenCategory, List<Category> categories)
     {
-        if (int.TryParse(chosenCategory, out var categoryNumber))
-        {
-            if (categoryNumber > 0 && categoryNumber <= categories.Count) return true;
-        }
-
-        return false;
+        return int.TryParse(chosenCategory, out var categoryNumber) && categoryNumber > 0 && categoryNumber <= categories.Count;
     }
 }

@@ -3,7 +3,8 @@ using Yatzy.IO;
 
 var reader = new Reader();
 var writer = new Writer();
-var diceRoll = new DiceRoll();
+var RNG = new RNG();
+var diceRoll = new DiceRoll(RNG);
 var player = new Player(diceRoll);
 var categoryScoreCalculator = new CategoryScoreCalculator();
 var playerCategories = new PlayerCategories(categoryScoreCalculator);

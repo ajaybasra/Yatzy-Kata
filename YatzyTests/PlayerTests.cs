@@ -9,7 +9,7 @@ public class PlayerTests
 
     public PlayerTests()
     {
-        _diceRoll = new DiceRoll();
+        _diceRoll = new DiceRoll(new RNG());
         _player = new Player(_diceRoll);
     }
 
