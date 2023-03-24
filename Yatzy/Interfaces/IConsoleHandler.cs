@@ -17,7 +17,7 @@ public interface IConsoleHandler
 
     public void ShowCategories(List<Category> categories);
 
-    public int GetCategory();
+    public int GetCategory(List<Category> categories);
 
     public void ShowScore(int score);
     public void ShowOutro(int score);

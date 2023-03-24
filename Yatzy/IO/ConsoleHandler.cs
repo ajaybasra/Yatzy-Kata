@@ -13,7 +13,7 @@ public class ConsoleHandler : IConsoleHandler
         _reader = reader;
         _writer = writer;
     }
-    public System.ConsoleKey ShowIntro()
+    public ConsoleKey ShowIntro()
     {
         _writer.WriteLine("🎲 Welcome to Yatzy! 🎲");
         _writer.Write("Press any key to play!");
@@ -27,7 +27,7 @@ public class ConsoleHandler : IConsoleHandler
         _writer.WriteLine("");
         _writer.WriteLine($"Your current round is {currentRound}.");
         _writer.WriteLine($"There are {remainingRounds - 1} rounds left before the game finishes.");
-        _writer.Write("Press [q] if you want to quit, or any other key to keep playing.");
+        _writer.WriteLine("Press [q] if you want to quit, or any other key to keep playing.");
         return _reader.ReadKey().Key == ConsoleKey.Q;
 
     }
@@ -38,9 +38,8 @@ public class ConsoleHandler : IConsoleHandler
         
         for (var i = 0; i < diceRolls.Length; i++)
         {
-            diceRollsString += $"Dice {i}: {diceRolls[i]}\n";
+            diceRollsString += $"Dice {i + 1}: {diceRolls[i]}\n";
         }
-        _writer.WriteLine("");
         _writer.WriteLine("");
         _writer.WriteLine("Below are the dice which you have rolled:");
         _writer.WriteLine(diceRollsString);
@@ -54,14 +53,25 @@ public class ConsoleHandler : IConsoleHandler
 
     public bool WantToHold()
     {
+        _writer.WriteLine("");
+        _writer.WriteLine("");
         _writer.WriteLine("Would you like to hold any dice? Press [y] to hold or any other key to continue");
         return _reader.ReadKey().Key == ConsoleKey.Y;
     }
 
     public string GetDiceToHold()
     {
-        _writer.WriteLine("Enter the dice you would like to hold in the following format: x,y,z");
-        var userInput = _reader.ReadLine();
+        _writer.WriteLine("");
+        _writer.Write("Enter the dice you would like to hold in the following format: x,y,z: ");
+        var userInput = _reader.ReadLine().Trim();
+        
+        while (!Validator.ChosenDiceToHoldAreValid(userInput))
+        {
+            _writer.Write("Invalid! Enter comma seperated integers between 1 and 6 (inclusive): ");
+            userInput = _reader.ReadLine().Trim();
+        }
+        
+        _writer.WriteLine("");
         return userInput;
     }
 
@@ -77,10 +87,17 @@ public class ConsoleHandler : IConsoleHandler
         _writer.WriteLine("");
     }
 
-    public int GetCategory()
+    public int GetCategory(List<Category> categories)
     {
         _writer.Write("Enter the corresponding number for the category you would like to play: ");
-        var userInput = _reader.ReadLine();
+        var userInput = _reader.ReadLine().Trim();
+        
+        while (!Validator.ChosenCategoryIsValid(userInput, categories))
+        {
+            _writer.Write("Enter a valid category number: ");
+            userInput = _reader.ReadLine().Trim();
+        }
+        
         var chosenCategory = int.Parse(userInput) - 1;
         return chosenCategory;
     }

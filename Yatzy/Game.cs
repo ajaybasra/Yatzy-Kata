@@ -38,11 +38,12 @@ public class Game
                     var diceToHold = _consoleHandler.GetDiceToHold().Split(",");
                     var diceToHoldAsInts = Array.ConvertAll(diceToHold, x => int.Parse(x) - 1);
                     _player.DiceRolls.HoldDice(diceToHoldAsInts);
+                    if (_player.DiceRolls.NumberOfRollsLeft == 1) _consoleHandler.ShowDiceRolls(_player.DiceRolls.GetDiceRolls());
                 }
                 _player.DiceRolls.RollDice();
             }
             _consoleHandler.ShowCategories(_playerCategories.ListOfCategories);
-            var chosenCategoryIndex = _consoleHandler.GetCategory();
+            var chosenCategoryIndex = _consoleHandler.GetCategory(_playerCategories.ListOfCategories);
             var chosenCategory = _playerCategories.ListOfCategories[chosenCategoryIndex];
             _player.Score += _playerCategories.PlaceRollsInCategory(chosenCategory, _player.DiceRolls.GetDiceRolls());
             _consoleHandler.ShowScore(_player.Score);
