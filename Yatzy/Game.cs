@@ -6,13 +6,11 @@ public class Game
 {
     private readonly IConsoleHandler _consoleHandler;
     private readonly Player _player;
-    private readonly PlayerCategories _playerCategories;
 
-    public Game(IConsoleHandler consoleHandler, Player player, PlayerCategories playerCategories)
+    public Game(IConsoleHandler consoleHandler, Player player)
     {
         _consoleHandler = consoleHandler;
         _player = player;
-        _playerCategories = playerCategories;
     }
 
     public void Initialize()
@@ -23,11 +21,11 @@ public class Game
 
     private void Play()
     {
-        while (!_playerCategories.IsCategoriesEmpty())
+        while (!_player._playerCategories.IsCategoriesEmpty())
         {
             _player.StartTurn();
             
-            if (_consoleHandler.WantToQuit(_playerCategories.getCategoriesListSize())) break;
+            if (_consoleHandler.WantToQuit(_player._playerCategories.getCategoriesListSize())) break;
             
             while (_player.DiceRolls.IsRollsLeft())
             {
@@ -42,10 +40,10 @@ public class Game
                 }
                 _player.DiceRolls.RollDice();
             }
-            _consoleHandler.ShowCategories(_playerCategories.ListOfCategories);
-            var chosenCategoryIndex = _consoleHandler.GetCategory(_playerCategories.ListOfCategories);
-            var chosenCategory = _playerCategories.ListOfCategories[chosenCategoryIndex];
-            _player.Score += _playerCategories.PlaceRollsInCategory(chosenCategory, _player.DiceRolls.GetDiceRolls());
+            _consoleHandler.ShowCategories(_player._playerCategories.ListOfCategories);
+            var chosenCategoryIndex = _consoleHandler.GetCategory(_player._playerCategories.ListOfCategories);
+            var chosenCategory = _player._playerCategories.ListOfCategories[chosenCategoryIndex];
+            _player.Score += _player._playerCategories.PlaceRollsInCategory(chosenCategory, _player.DiceRolls.GetDiceRolls());
             _consoleHandler.ShowScore(_player.Score);
         }
         _consoleHandler.ShowOutro(_player.Score);

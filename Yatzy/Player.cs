@@ -4,10 +4,12 @@ public class Player
 {
     public int Score { get; set; }
     public readonly DiceRoll DiceRolls;
+    public readonly PlayerCategories _playerCategories;
 
-    public Player(DiceRoll diceRolls )
+    public Player(DiceRoll diceRolls, PlayerCategories playerCategories )
     {
         DiceRolls = diceRolls;
+        _playerCategories = playerCategories;
     }
 
     public void StartTurn()
