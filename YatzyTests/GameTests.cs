@@ -19,10 +19,11 @@ public class GameTests
         mockConsoleHandler.SetupSequence(console => console.WantToReRoll()).Returns(false);
         mockConsoleHandler.SetupSequence(console => console.GetCategory(It.IsAny<List<Category>>())).Returns(0);
         
+        var categoryScoreCalculator = new CategoryScoreCalculator();
+        var playerCategories = new PlayerCategories(categoryScoreCalculator);
         var diceRoll = new DiceRoll(mockRng.Object);
-        var player = new Player(diceRoll);
-        var playerCategories = new PlayerCategories(new CategoryScoreCalculator());
-        var game = new Game(mockConsoleHandler.Object, player, playerCategories);
+        var player = new Player(diceRoll, playerCategories);
+        var game = new Game(mockConsoleHandler.Object, player);
         
         game.Initialize();
         
@@ -42,10 +43,11 @@ public class GameTests
         var mockRng = new Mock<IRandomNumberGenerator>();
         mockRng.Setup(x => x.GetRandomNumber()).Returns(1);
         
+        var categoryScoreCalculator = new CategoryScoreCalculator();
+        var playerCategories = new PlayerCategories(categoryScoreCalculator);
         var diceRoll = new DiceRoll(mockRng.Object);
-        var player = new Player(diceRoll);
-        var playerCategories = new PlayerCategories(new CategoryScoreCalculator());
-        var game = new Game(mockConsoleHandler.Object, player, playerCategories);
+        var player = new Player(diceRoll, playerCategories);
+        var game = new Game(mockConsoleHandler.Object, player);
         
         game.Initialize();
         

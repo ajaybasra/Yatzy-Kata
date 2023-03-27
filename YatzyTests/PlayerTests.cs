@@ -6,11 +6,15 @@ public class PlayerTests
 {
     private readonly DiceRoll _diceRoll;
     private readonly Player _player;
+    private readonly CategoryScoreCalculator _categoryScoreCalculator;
+    private readonly PlayerCategories _playerCategories;
 
     public PlayerTests()
     {
         _diceRoll = new DiceRoll(new RNG());
-        _player = new Player(_diceRoll);
+        _categoryScoreCalculator = new CategoryScoreCalculator();
+        _playerCategories = new PlayerCategories(_categoryScoreCalculator);
+        _player = new Player(_diceRoll, _playerCategories);
     }
 
     [Fact]
