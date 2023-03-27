@@ -7,6 +7,31 @@ namespace YatzyTests;
 
 public class GameTests
 {
+
+    [Fact]
+    public void Initialize_ShouldPrintIntroAndStartNewGame()
+    {
+        var mockRng = new Mock<IRandomNumberGenerator>();
+        mockRng.Setup(x => x.GetRandomNumber()).Returns(1);
+
+        var mockConsoleHandler = new Mock<IConsoleHandler>();
+        mockConsoleHandler.SetupSequence(console => console.ShowIntro());
+        mockConsoleHandler.SetupSequence(console => console.WantToQuit(It.IsAny<int>())).Returns(false);
+        mockConsoleHandler.SetupSequence(console => console.WantToReRoll()).Returns(false);
+        mockConsoleHandler.SetupSequence(console => console.GetCategory(It.IsAny<List<Category>>())).Returns(0);
+        
+        var categoryScoreCalculator = new CategoryScoreCalculator();
+        var playerCategories = new PlayerCategories(categoryScoreCalculator);
+        var diceRoll = new DiceRoll(mockRng.Object);
+        var player = new Player(diceRoll, playerCategories);
+        var game = new Game(mockConsoleHandler.Object, player);
+        
+        game.Initialize();
+        
+        mockConsoleHandler.Verify(console => console.ShowIntro(), Times.Once);
+        Assert.Equal(2, player.DiceRolls.NumberOfRollsLeft);
+    }
+    
     [Fact]
     public void Play_GivenAGameScenario_ShouldReturnCorrectScore()
     {
@@ -35,7 +60,7 @@ public class GameTests
     {
         var mockConsoleHandler = new Mock<IConsoleHandler>();
         mockConsoleHandler.SetupSequence(console => console.ShowIntro());
-        mockConsoleHandler.SetupSequence(console => console.WantToQuit(15)).Returns(false);
+        mockConsoleHandler.SetupSequence(console => console.WantToQuit(It.IsAny<int>())).Returns(false);
         mockConsoleHandler.SetupSequence(console => console.WantToReRoll()).Returns(false);
         mockConsoleHandler.SetupSequence(console => console.GetCategory(It.IsAny<List<Category>>())).Returns(0);
         
@@ -52,5 +77,57 @@ public class GameTests
         game.Initialize();
         
         mockConsoleHandler.Verify(console => console.ShowOutro(player.Score), Times.Once);
+    }
+    
+    [Fact]
+    public void Play_GivenFirstRound_PlayerShouldBeAbleToQuitWithoutPlaying()
+    {
+        var mockRng = new Mock<IRandomNumberGenerator>();
+        mockRng.Setup(x => x.GetRandomNumber()).Returns(1);
+
+        var mockConsoleHandler = new Mock<IConsoleHandler>();
+        mockConsoleHandler.SetupSequence(console => console.ShowIntro());
+        mockConsoleHandler.SetupSequence(console => console.WantToQuit(It.IsAny<int>())).Returns(true);
+
+        var categoryScoreCalculator = new CategoryScoreCalculator();
+        var playerCategories = new PlayerCategories(categoryScoreCalculator);
+        var diceRoll = new DiceRoll(mockRng.Object);
+        var player = new Player(diceRoll, playerCategories);
+        var game = new Game(mockConsoleHandler.Object, player);
+        
+        game.Initialize();
+        
+        mockConsoleHandler.Verify(console => console.ShowOutro(player.Score), Times.Once);
+        Assert.Equal(15, player._playerCategories.getCategoriesListSize()); // 0 categories played
+    }
+    
+    [Fact]
+    public void Play_GivenFullGame_PrintMethodsCalledAppropriateAmountOfTimes()
+    {
+        var mockConsoleHandler = new Mock<IConsoleHandler>();
+        mockConsoleHandler.SetupSequence(console => console.ShowIntro());
+        mockConsoleHandler.SetupSequence(console => console.WantToQuit(It.IsAny<int>())).Returns(false);
+        mockConsoleHandler.SetupSequence(console => console.WantToReRoll()).Returns(true);
+        mockConsoleHandler.SetupSequence(console => console.WantToHold()).Returns(false);
+        mockConsoleHandler.SetupSequence(console => console.GetCategory(It.IsAny<List<Category>>())).Returns(0);
+
+        var mockRng = new Mock<IRandomNumberGenerator>();
+        mockRng.Setup(x => x.GetRandomNumber()).Returns(1);
+        
+        var categoryScoreCalculator = new CategoryScoreCalculator();
+        var playerCategories = new PlayerCategories(categoryScoreCalculator);
+        var diceRoll = new DiceRoll(mockRng.Object);
+        var player = new Player(diceRoll, playerCategories);
+        var game = new Game(mockConsoleHandler.Object, player);
+        
+        game.Initialize();
+        
+        mockConsoleHandler.Verify(console => console.ShowIntro(), Times.Once);
+        mockConsoleHandler.Verify(console => console.WantToQuit(It.IsAny<int>()), Times.Exactly(15));
+        mockConsoleHandler.Verify(console => console.WantToReRoll(), Times.Exactly(16));
+        mockConsoleHandler.Verify(console => console.GetCategory(It.IsAny<List<Category>>()), Times.Exactly(15));
+        mockConsoleHandler.Verify(console => console.ShowOutro(player.Score), Times.Once);
+        
+        Assert.Equal(0, player._playerCategories.getCategoriesListSize());
     }
 }
