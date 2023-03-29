@@ -30,7 +30,7 @@ public class Game
             while (_player.DiceRolls.IsRollsLeft())
             {
                 _consoleHandler.ShowDiceRolls(_player.DiceRolls.GetDiceRolls());
-                if (!_consoleHandler.WantToReRoll()) break;
+                if (!_consoleHandler.WantToReRoll(_player.DiceRolls.NumberOfRollsLeft)) break;
                 if (_consoleHandler.WantToHold())
                 {
                     var diceToHold = _consoleHandler.GetDiceToHold().Split(",");

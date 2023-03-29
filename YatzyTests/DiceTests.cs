@@ -80,7 +80,7 @@ public class DiceTests
     [Fact]
     public void DecrementRollsLeft_ShouldSubtractFromPlayerRolls_WhenCalled()
     {
-        _diceRoller.setNumberOfRolls(3);
+        _diceRoller.SetNumberOfRolls(3);
         _diceRoller.DecrementRollsLeft();
         
         Assert.Equal(2, _diceRoller.NumberOfRollsLeft);

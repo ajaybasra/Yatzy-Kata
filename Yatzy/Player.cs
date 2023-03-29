@@ -14,7 +14,7 @@ public class Player
 
     public void StartTurn()
     {
-        DiceRolls.setNumberOfRolls(3);
+        DiceRolls.SetNumberOfRolls(3);
         
         foreach (var die in DiceRolls.Dice)
         {
@@ -28,4 +28,5 @@ public class Player
     {
         Score += points;
     }
+    
 }

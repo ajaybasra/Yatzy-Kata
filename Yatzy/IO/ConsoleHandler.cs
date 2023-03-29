@@ -45,8 +45,9 @@ public class ConsoleHandler : IConsoleHandler
         _writer.WriteLine(diceRollsString);
     }
 
-    public bool WantToReRoll()
+    public bool WantToReRoll(int rollsLeft)
     {
+        _writer.WriteLine($"You have {rollsLeft} {(rollsLeft > 1? "rolls" : "roll")} left");
         _writer.Write("If you would like to reroll enter [r], otherwise to continue press any other key.");
         return _reader.ReadKey().Key == ConsoleKey.R;
     }

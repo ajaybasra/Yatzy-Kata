@@ -65,8 +65,13 @@ public class DiceRoll : IDiceRoller
         return NumberOfRollsLeft > 0;
     }
 
-    public void setNumberOfRolls(int roles)
+    public void SetNumberOfRolls(int roles)
     {
         NumberOfRollsLeft = roles;
+    }
+
+    public int GetNumberOfRollsLeft()
+    {
+        return NumberOfRollsLeft;
     }
 }

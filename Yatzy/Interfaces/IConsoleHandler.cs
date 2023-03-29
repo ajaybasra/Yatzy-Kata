@@ -9,7 +9,7 @@ public interface IConsoleHandler
     public bool WantToQuit(int completedRounds);
 
     public void ShowDiceRolls(int[] diceRolls);
-    public bool WantToReRoll();
+    public bool WantToReRoll(int rollsLeft);
 
     public bool WantToHold();
 
