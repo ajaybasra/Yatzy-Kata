@@ -43,7 +43,7 @@ public class Game
             _consoleHandler.ShowCategories(_player.PlayerCategories.ListOfCategories);
             var chosenCategoryIndex = _consoleHandler.GetCategory(_player.PlayerCategories.ListOfCategories);
             var chosenCategory = _player.PlayerCategories.ListOfCategories[chosenCategoryIndex];
-            _player.PlayerCategories.PlaceRollsInCategory(chosenCategory, _player.DiceRolls.GetDiceRolls(), _player);
+            _player.AddToPlayScore(_player.PlayerCategories.PlaceRollsInCategory(chosenCategory, _player.DiceRolls.GetDiceRolls(), _player));
             _player.PlayerCategories.RemoveCategory(chosenCategory);
             _consoleHandler.ShowScore(_player.Score);
         }

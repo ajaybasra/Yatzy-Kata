@@ -19,14 +19,7 @@ public class PlayerCategoriesTests
         _player = new Player(_diceRoll, _playerCategories);
 
     }
-
-    [Fact]
-    public void PlaceRollsInCategory_ShouldAddToPlayScore_WhenCalled()
-    {
-        _playerCategories.PlaceRollsInCategory(Category.Chance, new int[] { 1, 2, 3, 4, 5 }, _player);
-        
-        Assert.Equal(15, _player.Score);
-    }
+    
     public static IEnumerable<object[]> GetCategoryAndDiceRolls()
     {
         yield return new object[] { Category.Chance, new[] { 2, 2, 2, 2, 2 }, 10 };
@@ -54,5 +47,25 @@ public class PlayerCategoriesTests
         
         _playerCategories.ListOfCategories.Clear();
         Assert.True(_playerCategories.IsCategoriesEmpty());
+    }
+    
+    public static IEnumerable<object[]> GetCategoryToRemove()
+    {
+        yield return new object[] { Category.Chance };
+        yield return new object[] { Category.Yatzy };
+        yield return new object[] { Category.Pair };
+        yield return new object[] { Category.TwoPairs };
+        yield return new object[] { Category.SmallStraight };
+        yield return new object[] { Category.LargeStraight };
+        yield return new object[] { Category.FullHouse };
+    }
+    [Theory] 
+    [MemberData(nameof(GetCategoryToRemove))]
+    public void RemoveCategory_ShouldRemoveGivenCategory_WhenCalled(Category category)
+    {
+        _playerCategories.RemoveCategory(category);
+        
+        Assert.Equal(14, _playerCategories.GetCategoriesListSize());
+        Assert.False(_playerCategories.ListOfCategories.Contains(category));
     }
 }
