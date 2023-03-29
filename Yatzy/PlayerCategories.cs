@@ -12,7 +12,7 @@ public class PlayerCategories
         _categoryScoreCalculator = categoryScoreCalculator;
     }
     
-    public int PlaceRollsInCategory(Category category, int[] diceRolls, Player player) 
+    public int PlaceRollsInCategory(Category category, int[] diceRolls) 
     {
         switch (category)
         {
@@ -66,9 +66,17 @@ public class PlayerCategories
         ListOfCategories.Remove(categoryToRemove);
     } 
 
-    // public List<int> GetAllPossibleCategoryScoresForCurrentRoll(int[] diceRolls)
-    // {
-    //     var jj = new List<int>();
-    //     jj.Add();
-    // }
+    public Category GetCategoryWhichReturnsHighestScore(int[] diceRolls)
+    {
+        var listOfScores = new List<int>();
+        
+        foreach (var category in ListOfCategories)
+        {
+            listOfScores.Add(PlaceRollsInCategory(category, diceRolls));
+        }
+
+        var maxCategoryIndex = listOfScores.IndexOf(listOfScores.Max());
+        
+        return ListOfCategories[maxCategoryIndex];
+    }
 }

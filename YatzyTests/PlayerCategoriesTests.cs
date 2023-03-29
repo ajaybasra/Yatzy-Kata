@@ -7,16 +7,11 @@ public class PlayerCategoriesTests
 {
     private readonly CategoryScoreCalculator _categoryScoreCalculator;
     private readonly PlayerCategories _playerCategories;
-    private readonly Player _player;
-    private readonly DiceRoll _diceRoll;
-    
-
 
     public PlayerCategoriesTests()
     {
         _categoryScoreCalculator = new CategoryScoreCalculator();
         _playerCategories = new PlayerCategories(_categoryScoreCalculator);
-        _player = new Player(_diceRoll, _playerCategories);
 
     }
     
@@ -35,7 +30,7 @@ public class PlayerCategoriesTests
     [MemberData(nameof(GetCategoryAndDiceRolls))]
     public void PlaceRollsInCategory_ShouldReturnCorrectScoreForCategoryWhichHasRollPlacedInIt_WhenCalled(Category category, int[] diceRolls, int expected)
     {
-       var scoreForCategory = _playerCategories.PlaceRollsInCategory(category, diceRolls, _player);
+       var scoreForCategory = _playerCategories.PlaceRollsInCategory(category, diceRolls);
        
        Assert.Equal(expected, scoreForCategory);
     }
@@ -67,5 +62,20 @@ public class PlayerCategoriesTests
         
         Assert.Equal(14, _playerCategories.GetCategoriesListSize());
         Assert.False(_playerCategories.ListOfCategories.Contains(category));
+    }
+
+    public static IEnumerable<object[]> GetDiceRollsAndExpectedCategory()
+    {
+        yield return new object[] { new[] { 6, 6, 6, 6, 6 }, Category.Yatzy };
+        yield return new object[] { new[] { 6, 6, 6, 6, 5 }, Category.Chance };
+        yield return new object[] { new[] { 1, 2, 3, 4, 6 }, Category.SmallStraight };
+        yield return new object[] { new[] { 1, 2, 3, 4, 5 }, Category.LargeStraight };
+
+    }
+    [Theory]
+    [MemberData(nameof(GetDiceRollsAndExpectedCategory))]
+    public void GetCategoryWhichReturnsHighestScore_ReturnsCategoryWhichGivesHighestScoreForGivenRoll_WhenCalled(int[] diceRoll, Category expectedCategory)
+    {
+        Assert.Equal(expectedCategory, _playerCategories.GetCategoryWhichReturnsHighestScore(diceRoll));
     }
 }
