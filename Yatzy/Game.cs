@@ -23,14 +23,14 @@ public class Game
     {
         while (!_player.PlayerCategories.IsCategoriesEmpty())
         {
-            _player.StartTurn();
+            _player.StartPlayerTurn();
             
             if (_consoleHandler.WantToQuit(_player.PlayerCategories.GetCategoriesListSize())) break;
             
             while (_player.DiceRolls.IsRollsLeft())
             {
                 _consoleHandler.ShowDiceRolls(_player.DiceRolls.GetDiceRolls());
-                if (!_consoleHandler.WantToReRoll(_player.DiceRolls.NumberOfRollsLeft)) break;
+                if (!_consoleHandler.WantToReRoll(_player.DiceRolls.GetNumberOfRollsLeft())) break;
                 if (_consoleHandler.WantToHold())
                 {
                     var diceToHold = _consoleHandler.GetDiceToHold().Split(",");

@@ -26,10 +26,10 @@ public class PlayerTests
     [Fact]
     public void StartTurn_ShouldResetIsHeldToFalseAndRolls_WhenNewTurn()
     {
-        _player.StartTurn();
+        _player.StartPlayerTurn();
         _player.DiceRolls.DecrementRollsLeft();
         _player.DiceRolls.HoldDice(new int[] {0,1});
-        _player.StartTurn();
+        _player.StartPlayerTurn();
         
         Assert.Equal(2, _player.DiceRolls.NumberOfRollsLeft);
         Assert.False(_player.DiceRolls.Dice[0].IsHeld);
@@ -44,7 +44,7 @@ public class PlayerTests
         _player.DiceRolls.DecrementRollsLeft();
         Assert.False(_player.DiceRolls.IsRollsLeft());
         
-        _player.StartTurn();
+        _player.StartPlayerTurn();
         Assert.True(_player.DiceRolls.IsRollsLeft());
     }
 
