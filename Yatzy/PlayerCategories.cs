@@ -71,10 +71,15 @@ public class PlayerCategories
         return ListOfCategories.Count == 0;
     }
 
-    public int getCategoriesListSize()
+    public int GetCategoriesListSize()
     {
         return ListOfCategories.Count;
     }
+
+    public void RemoveCategory(Category categoryToRemove)
+    {
+        ListOfCategories.Remove(categoryToRemove);
+    } 
 
     // public List<int> GetAllPossibleCategoryScoresForCurrentRoll(int[] diceRolls)
     // {

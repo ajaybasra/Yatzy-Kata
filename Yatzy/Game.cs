@@ -25,7 +25,7 @@ public class Game
         {
             _player.StartTurn();
             
-            if (_consoleHandler.WantToQuit(_player.PlayerCategories.getCategoriesListSize())) break;
+            if (_consoleHandler.WantToQuit(_player.PlayerCategories.GetCategoriesListSize())) break;
             
             while (_player.DiceRolls.IsRollsLeft())
             {
@@ -44,7 +44,7 @@ public class Game
             var chosenCategoryIndex = _consoleHandler.GetCategory(_player.PlayerCategories.ListOfCategories);
             var chosenCategory = _player.PlayerCategories.ListOfCategories[chosenCategoryIndex];
             _player.PlayerCategories.PlaceRollsInCategory(chosenCategory, _player.DiceRolls.GetDiceRolls(), _player);
-            _player.PlayerCategories.ListOfCategories.Remove(_player.PlayerCategories.ListOfCategories[chosenCategoryIndex]);
+            _player.PlayerCategories.RemoveCategory(chosenCategory);
             _consoleHandler.ShowScore(_player.Score);
         }
         _consoleHandler.ShowOutro(_player.Score);
