@@ -12,54 +12,54 @@ public class PlayerCategories
         _categoryScoreCalculator = categoryScoreCalculator;
     }
     
-    public int PlaceRollsInCategory(Category category, int[] diceRolls) 
+    public int PlaceRollsInCategory(Category category, int[] diceRolls, Player player) 
     {
         switch (category)
         {
             case Category.Chance:
-                ListOfCategories.Remove(Category.Chance);
+                player.AddToPlayScore(_categoryScoreCalculator.GetChanceScore(diceRolls));
                 return _categoryScoreCalculator.GetChanceScore(diceRolls);
             case Category.Yatzy:
-                ListOfCategories.Remove(Category.Yatzy);
+                player.AddToPlayScore(_categoryScoreCalculator.GetYatzyScore(diceRolls));
                 return _categoryScoreCalculator.GetYatzyScore(diceRolls);
             case Category.Ones:
-                ListOfCategories.Remove(Category.Ones);
+                player.AddToPlayScore(_categoryScoreCalculator.GetXScore(diceRolls, 1));
                 return _categoryScoreCalculator.GetXScore(diceRolls, 1);
             case Category.Twos:
-                ListOfCategories.Remove(Category.Twos);
+                player.AddToPlayScore(_categoryScoreCalculator.GetXScore(diceRolls, 2));
                 return _categoryScoreCalculator.GetXScore(diceRolls, 2);
             case Category.Threes:
-                ListOfCategories.Remove(Category.Threes);
+                player.AddToPlayScore(_categoryScoreCalculator.GetXScore(diceRolls, 3));
                 return _categoryScoreCalculator.GetXScore(diceRolls, 3);
             case Category.Fours:
-                ListOfCategories.Remove(Category.Fours);
+                player.AddToPlayScore(_categoryScoreCalculator.GetXScore(diceRolls, 4));
                 return _categoryScoreCalculator.GetXScore(diceRolls, 4);
             case Category.Fives:
-                ListOfCategories.Remove(Category.Fives);
+                player.AddToPlayScore(_categoryScoreCalculator.GetXScore(diceRolls, 5));
                 return _categoryScoreCalculator.GetXScore(diceRolls, 5);
             case Category.Sixes:
-                ListOfCategories.Remove(Category.Sixes);
+                player.AddToPlayScore(_categoryScoreCalculator.GetXScore(diceRolls, 6));
                 return _categoryScoreCalculator.GetXScore(diceRolls, 6);
             case Category.Pair:
-                ListOfCategories.Remove(Category.Pair);
+                player.AddToPlayScore(_categoryScoreCalculator.GetPairScore(diceRolls));
                 return _categoryScoreCalculator.GetPairScore(diceRolls);
             case Category.TwoPairs:
-                ListOfCategories.Remove(Category.TwoPairs);
+                player.AddToPlayScore(_categoryScoreCalculator.GetTwoPairScore(diceRolls));
                 return _categoryScoreCalculator.GetTwoPairScore(diceRolls);
             case Category.ThreeOfAKind:
-                ListOfCategories.Remove(Category.ThreeOfAKind);
+                player.AddToPlayScore(_categoryScoreCalculator.GetXOfAKindScore(diceRolls, 3));
                 return _categoryScoreCalculator.GetXOfAKindScore(diceRolls, 3);
             case Category.FourOfAKind:
-                ListOfCategories.Remove(Category.FourOfAKind);
+                player.AddToPlayScore(_categoryScoreCalculator.GetXOfAKindScore(diceRolls, 4));
                 return _categoryScoreCalculator.GetXOfAKindScore(diceRolls, 4);
             case Category.SmallStraight:
-                ListOfCategories.Remove(Category.SmallStraight);
+                player.AddToPlayScore(_categoryScoreCalculator.GetSmallStraightScore(diceRolls));
                 return _categoryScoreCalculator.GetSmallStraightScore(diceRolls);
             case Category.LargeStraight:
-                ListOfCategories.Remove(Category.LargeStraight);
+                player.AddToPlayScore(_categoryScoreCalculator.GetLargeStraightScore(diceRolls));
                 return _categoryScoreCalculator.GetLargeStraightScore(diceRolls);
             case Category.FullHouse:
-                ListOfCategories.Remove(Category.FullHouse);
+                player.AddToPlayScore(_categoryScoreCalculator.GetFullHouseScore(diceRolls));
                 return _categoryScoreCalculator.GetFullHouseScore(diceRolls);
             default:
                 return 0;
@@ -75,4 +75,10 @@ public class PlayerCategories
     {
         return ListOfCategories.Count;
     }
+
+    // public List<int> GetAllPossibleCategoryScoresForCurrentRoll(int[] diceRolls)
+    // {
+    //     var jj = new List<int>();
+    //     jj.Add();
+    // }
 }

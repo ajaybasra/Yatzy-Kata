@@ -7,20 +7,25 @@ public class PlayerCategoriesTests
 {
     private readonly CategoryScoreCalculator _categoryScoreCalculator;
     private readonly PlayerCategories _playerCategories;
+    private readonly Player _player;
+    private readonly DiceRoll _diceRoll;
+    
 
 
     public PlayerCategoriesTests()
     {
         _categoryScoreCalculator = new CategoryScoreCalculator();
         _playerCategories = new PlayerCategories(_categoryScoreCalculator);
+        _player = new Player(_diceRoll, _playerCategories);
+
     }
 
     [Fact]
-    public void PlaceRollsInCategory_ShouldRemoveCategoryFromList_WhenCalled()
+    public void PlaceRollsInCategory_ShouldAddToPlayScore_WhenCalled()
     {
-        _playerCategories.PlaceRollsInCategory(Category.Chance, new int[] { 1, 2, 3, 4, 5 });
+        _playerCategories.PlaceRollsInCategory(Category.Chance, new int[] { 1, 2, 3, 4, 5 }, _player);
         
-        Assert.Equal(14, _playerCategories.ListOfCategories.Count());
+        Assert.Equal(15, _player.Score);
     }
     public static IEnumerable<object[]> GetCategoryAndDiceRolls()
     {
@@ -37,7 +42,7 @@ public class PlayerCategoriesTests
     [MemberData(nameof(GetCategoryAndDiceRolls))]
     public void PlaceRollsInCategory_ShouldReturnCorrectScoreForCategoryWhichHasRollPlacedInIt_WhenCalled(Category category, int[] diceRolls, int expected)
     {
-       var scoreForCategory = _playerCategories.PlaceRollsInCategory(category, diceRolls);
+       var scoreForCategory = _playerCategories.PlaceRollsInCategory(category, diceRolls, _player);
        
        Assert.Equal(expected, scoreForCategory);
     }

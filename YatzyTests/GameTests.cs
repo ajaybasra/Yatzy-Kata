@@ -98,7 +98,7 @@ public class GameTests
         game.Initialize();
         
         mockConsoleHandler.Verify(console => console.ShowOutro(player.Score), Times.Once);
-        Assert.Equal(15, player._playerCategories.getCategoriesListSize()); // 0 categories played
+        Assert.Equal(15, player.PlayerCategories.getCategoriesListSize()); // 0 categories played
     }
     
     [Fact]
@@ -128,6 +128,6 @@ public class GameTests
         mockConsoleHandler.Verify(console => console.GetCategory(It.IsAny<List<Category>>()), Times.Exactly(15));
         mockConsoleHandler.Verify(console => console.ShowOutro(player.Score), Times.Once);
         
-        Assert.Equal(0, player._playerCategories.getCategoriesListSize());
+        Assert.Equal(0, player.PlayerCategories.getCategoriesListSize());
     }
 }

@@ -21,11 +21,11 @@ public class Game
 
     private void Play()
     {
-        while (!_player._playerCategories.IsCategoriesEmpty())
+        while (!_player.PlayerCategories.IsCategoriesEmpty())
         {
             _player.StartTurn();
             
-            if (_consoleHandler.WantToQuit(_player._playerCategories.getCategoriesListSize())) break;
+            if (_consoleHandler.WantToQuit(_player.PlayerCategories.getCategoriesListSize())) break;
             
             while (_player.DiceRolls.IsRollsLeft())
             {
@@ -40,10 +40,11 @@ public class Game
                 }
                 _player.DiceRolls.RollDice();
             }
-            _consoleHandler.ShowCategories(_player._playerCategories.ListOfCategories);
-            var chosenCategoryIndex = _consoleHandler.GetCategory(_player._playerCategories.ListOfCategories);
-            var chosenCategory = _player._playerCategories.ListOfCategories[chosenCategoryIndex];
-            _player.Score += _player._playerCategories.PlaceRollsInCategory(chosenCategory, _player.DiceRolls.GetDiceRolls());
+            _consoleHandler.ShowCategories(_player.PlayerCategories.ListOfCategories);
+            var chosenCategoryIndex = _consoleHandler.GetCategory(_player.PlayerCategories.ListOfCategories);
+            var chosenCategory = _player.PlayerCategories.ListOfCategories[chosenCategoryIndex];
+            _player.PlayerCategories.PlaceRollsInCategory(chosenCategory, _player.DiceRolls.GetDiceRolls(), _player);
+            _player.PlayerCategories.ListOfCategories.Remove(_player.PlayerCategories.ListOfCategories[chosenCategoryIndex]);
             _consoleHandler.ShowScore(_player.Score);
         }
         _consoleHandler.ShowOutro(_player.Score);
