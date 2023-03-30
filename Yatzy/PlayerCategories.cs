@@ -68,12 +68,7 @@ public class PlayerCategories
 
     public Category GetCategoryWhichReturnsHighestScore(int[] diceRolls)
     {
-        var listOfScores = new List<int>();
-        
-        foreach (var category in ListOfCategories)
-        {
-            listOfScores.Add(PlaceRollsInCategory(category, diceRolls));
-        }
+        var listOfScores = ListOfCategories.Select(category => PlaceRollsInCategory(category, diceRolls)).ToList();
 
         var maxCategoryIndex = listOfScores.IndexOf(listOfScores.Max());
         

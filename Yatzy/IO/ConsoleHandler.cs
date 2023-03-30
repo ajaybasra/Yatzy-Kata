@@ -47,7 +47,7 @@ public class ConsoleHandler : IConsoleHandler
 
     public bool WantToReRoll(int rollsLeft)
     {
-        _writer.WriteLine($"You have {rollsLeft} {(rollsLeft > 1? "rolls" : "roll")} left");
+        _writer.WriteLine($"You have {rollsLeft} {(rollsLeft > 1? "rolls" : "roll")} left.");
         _writer.Write("If you would like to reroll enter [r], otherwise to continue press any other key.");
         return _reader.ReadKey().Key == ConsoleKey.R;
     }
@@ -68,7 +68,7 @@ public class ConsoleHandler : IConsoleHandler
         
         while (!Validator.ChosenDiceToHoldAreValid(userInput))
         {
-            _writer.Write("Invalid! Enter comma seperated integers between 1 and 6 (inclusive): ");
+            _writer.Write("Invalid! Enter comma seperated integers between 1 and 5 (inclusive): ");
             userInput = _reader.ReadLine().Trim();
         }
         

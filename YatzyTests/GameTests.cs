@@ -23,7 +23,7 @@ public class GameTests
         var categoryScoreCalculator = new CategoryScoreCalculator();
         var playerCategories = new PlayerCategories(categoryScoreCalculator);
         var diceRoll = new DiceRoll(mockRng.Object);
-        var player = new Player(diceRoll, playerCategories);
+        var player = new HumanPlayer(diceRoll, playerCategories);
         var game = new Game(mockConsoleHandler.Object, player);
         
         game.Initialize();
@@ -47,7 +47,7 @@ public class GameTests
         var categoryScoreCalculator = new CategoryScoreCalculator();
         var playerCategories = new PlayerCategories(categoryScoreCalculator);
         var diceRoll = new DiceRoll(mockRng.Object);
-        var player = new Player(diceRoll, playerCategories);
+        var player = new HumanPlayer(diceRoll, playerCategories);
         var game = new Game(mockConsoleHandler.Object, player);
         
         game.Initialize();
@@ -71,7 +71,7 @@ public class GameTests
         var categoryScoreCalculator = new CategoryScoreCalculator();
         var playerCategories = new PlayerCategories(categoryScoreCalculator);
         var diceRoll = new DiceRoll(mockRng.Object);
-        var player = new Player(diceRoll, playerCategories);
+        var player = new HumanPlayer(diceRoll, playerCategories);
         var game = new Game(mockConsoleHandler.Object, player);
         
         game.Initialize();
@@ -92,7 +92,7 @@ public class GameTests
         var categoryScoreCalculator = new CategoryScoreCalculator();
         var playerCategories = new PlayerCategories(categoryScoreCalculator);
         var diceRoll = new DiceRoll(mockRng.Object);
-        var player = new Player(diceRoll, playerCategories);
+        var player = new HumanPlayer(diceRoll, playerCategories);
         var game = new Game(mockConsoleHandler.Object, player);
         
         game.Initialize();
@@ -117,7 +117,7 @@ public class GameTests
         var categoryScoreCalculator = new CategoryScoreCalculator();
         var playerCategories = new PlayerCategories(categoryScoreCalculator);
         var diceRoll = new DiceRoll(mockRng.Object);
-        var player = new Player(diceRoll, playerCategories);
+        var player = new HumanPlayer(diceRoll, playerCategories);
         var game = new Game(mockConsoleHandler.Object, player);
         
         game.Initialize();
