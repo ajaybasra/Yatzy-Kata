@@ -25,7 +25,7 @@ public class ConsoleHandler : IConsoleHandler
         var currentRound = 15 - remainingRounds + 1;
         _writer.WriteLine("");
         _writer.WriteLine("");
-        _writer.WriteLine($"Your current round is {currentRound}.");
+        _writer.WriteLine($"It is currently  round {currentRound}.");
         _writer.WriteLine($"There {(remainingRounds - 1 != 1? "are" : "is")} {remainingRounds - 1} {(remainingRounds - 1  != 1? "rounds" : "round")} left before the game finishes.");
         _writer.WriteLine("Press [q] if you want to quit, or any other key to keep playing.");
         return _reader.ReadKey().Key == ConsoleKey.Q;
@@ -112,11 +112,12 @@ public class ConsoleHandler : IConsoleHandler
     {
         _writer.WriteLine("");
         _writer.WriteLine("");
-        _writer.WriteLine($"GG! Your final score was {score}, hope you had fun!");
+        _writer.WriteLine($"GG! Hope you had fun, check below to see the final scores!");
     }
 
     public void BotRolledDice()
     {
+        _writer.WriteLine("");
         _writer.WriteLine("The bot has rolled the following dice:");
     }
 
@@ -133,5 +134,18 @@ public class ConsoleHandler : IConsoleHandler
     public void BotScore(int score)
     {
         _writer.WriteLine($"The bots current score is {score}! Not too shabby.");
+    }
+
+    public void FinalScores(List<IPlayer> playerList)
+    {
+        foreach (var player in playerList)
+        {
+            _writer.WriteLine($"{player.Name} ({player.Type.ToString()}) scored {player.Score} 👏 ");
+        }
+    }
+
+    public void Winner(List<IPlayer> playerList)
+    {
+        Console.WriteLine($"The winner is {playerList.MaxBy(player => player.Score).Name} 🥳");
     }
 };

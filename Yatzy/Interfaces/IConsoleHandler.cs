@@ -24,6 +24,9 @@ public interface IConsoleHandler
     public void BotRolledDice();
     public void BotDoesNotReRoll();
     public void BotChoosesCategory(string chosenCategory);
-
     public void BotScore(int score);
+
+    public void FinalScores(List<IPlayer> playerList);
+
+    public void Winner(List<IPlayer> playerList);
 }

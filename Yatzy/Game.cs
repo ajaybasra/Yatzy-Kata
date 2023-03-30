@@ -7,19 +7,23 @@ public class Game
     private readonly IConsoleHandler _consoleHandler;
     private readonly HumanPlayer _humanPlayer;
     private readonly Bot _bot;
+    public List<IPlayer> ListOfPlayers { get; set; }
     private int TurnsRemaining { get; set; }
 
     public Game(IConsoleHandler consoleHandler, HumanPlayer humanPlayer, Bot bot)
     {
         _consoleHandler = consoleHandler;
+        ListOfPlayers = new List<IPlayer>() {};
         _humanPlayer = humanPlayer;
         _bot = bot;
         TurnsRemaining = 15; // numb of categories
     }
-
+    
     public void Initialize()
     {
         _consoleHandler.ShowIntro();
+        ListOfPlayers.Add(_humanPlayer);
+        ListOfPlayers.Add(_bot);
         Play();
     }
 
@@ -27,16 +31,21 @@ public class Game
     {
         while (TurnsRemaining > 0)
         {
-            _bot.StartPlayerTurn();
-            
             if (_consoleHandler.WantToQuit(TurnsRemaining)) break;
             
-            _bot.ChooseWhatToDoWithDice(_consoleHandler, _bot.DiceRolls);
+            foreach (var player in ListOfPlayers)
+            {
+                player.StartPlayerTurn();
+                
+                player.ChooseWhatToDoWithDice(_consoleHandler, player.DiceRolls);
             
-            _bot.ChooseCategoryToPlay(_consoleHandler);
+                player.ChooseCategoryToPlay(_consoleHandler);
+            }
 
             TurnsRemaining--;
         }
         _consoleHandler.ShowOutro(_bot.Score);
+        _consoleHandler.FinalScores(ListOfPlayers);
+        _consoleHandler.Winner(ListOfPlayers);
     }
 }

@@ -4,8 +4,11 @@ namespace Yatzy.Interfaces;
 
 public interface IPlayer
 {
+    public string Name { get; set; }
     public PlayerType Type { get; set; }
     public int Score { get; set; }
+    public DiceRoll DiceRolls { get; set; }
+    public PlayerCategories PlayerCategories { get; set; }
     
     public void StartPlayerTurn();
     public void AddToPlayScore(int points);

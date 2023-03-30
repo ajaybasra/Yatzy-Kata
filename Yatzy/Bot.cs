@@ -5,10 +5,11 @@ namespace Yatzy;
 
 public class Bot : IPlayer
 {
+    public string Name { get; set; }
     public PlayerType Type { get; set; }
     public int Score { get; set; }
-    public readonly DiceRoll DiceRolls;
-    public readonly PlayerCategories PlayerCategories;
+    public DiceRoll DiceRolls { get; set; }
+    public PlayerCategories PlayerCategories { get; set; }
 
     public Bot(DiceRoll diceRolls, PlayerCategories playerCategories)
     {
