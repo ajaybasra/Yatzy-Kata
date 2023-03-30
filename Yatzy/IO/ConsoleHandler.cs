@@ -26,7 +26,7 @@ public class ConsoleHandler : IConsoleHandler
         _writer.WriteLine("");
         _writer.WriteLine("");
         _writer.WriteLine($"Your current round is {currentRound}.");
-        _writer.WriteLine($"There are {remainingRounds - 1} rounds left before the game finishes.");
+        _writer.WriteLine($"There {(remainingRounds - 1 != 1? "are" : "is")} {remainingRounds - 1} {(remainingRounds - 1  != 1? "rounds" : "round")} left before the game finishes.");
         _writer.WriteLine("Press [q] if you want to quit, or any other key to keep playing.");
         return _reader.ReadKey().Key == ConsoleKey.Q;
 

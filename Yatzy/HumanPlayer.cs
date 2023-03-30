@@ -5,13 +5,12 @@ namespace Yatzy;
 
 public class HumanPlayer : IPlayer
 {
-    public string Name { get; set; }
     public PlayerType Type { get; set; }
     public int Score { get; set; }
     public readonly DiceRoll DiceRolls;
     public readonly PlayerCategories PlayerCategories;
 
-    public HumanPlayer(DiceRoll diceRolls, PlayerCategories playerCategories )
+    public HumanPlayer(DiceRoll diceRolls, PlayerCategories playerCategories)
     {
         Type = PlayerType.Human;
         DiceRolls = diceRolls;
@@ -35,7 +34,7 @@ public class HumanPlayer : IPlayer
         Score += points;
     }
 
-    public void ChooseWhatToDoToDice(IConsoleHandler consoleHandler, DiceRoll diceRolls)
+    public void ChooseWhatToDoWithDice(IConsoleHandler consoleHandler, DiceRoll diceRolls)
     {
         while (diceRolls.IsRollsLeft())
         {

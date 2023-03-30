@@ -9,7 +9,7 @@ public interface IPlayer
     
     public void StartPlayerTurn();
     public void AddToPlayScore(int points);
-    public void ChooseWhatToDoToDice(IConsoleHandler consoleHandler, DiceRoll diceRolls);
+    public void ChooseWhatToDoWithDice(IConsoleHandler consoleHandler, DiceRoll diceRolls);
     public void ChooseCategoryToPlay(IConsoleHandler consoleHandler);
 
 }
