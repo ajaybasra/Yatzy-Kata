@@ -21,4 +21,9 @@ public interface IConsoleHandler
 
     public void ShowScore(int score);
     public void ShowOutro(int score);
+    public void BotRolledDice();
+    public void BotDoesNotReRoll();
+    public void BotChoosesCategory(string chosenCategory);
+
+    public void BotScore(int score);
 }

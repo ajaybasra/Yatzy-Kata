@@ -35,11 +35,17 @@ public class Bot : IPlayer
 
     public void ChooseWhatToDoWithDice(IConsoleHandler consoleHandler, DiceRoll diceRolls)
     {
-        throw new NotImplementedException();
+        consoleHandler.BotRolledDice();
+        consoleHandler.ShowDiceRolls(diceRolls.GetDiceRolls());
+        consoleHandler.BotDoesNotReRoll();
     }
 
     public void ChooseCategoryToPlay(IConsoleHandler consoleHandler)
     {
-        throw new NotImplementedException();
+        var chosenCategory = PlayerCategories.GetCategoryWhichReturnsHighestScore(DiceRolls.GetDiceRolls());
+        consoleHandler.BotChoosesCategory(chosenCategory.ToString());
+        AddToPlayScore(PlayerCategories.PlaceRollsInCategory(chosenCategory, DiceRolls.GetDiceRolls()));
+        PlayerCategories.RemoveCategory(chosenCategory);
+        consoleHandler.BotScore(Score);
     }
 }

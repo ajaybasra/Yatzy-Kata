@@ -6,12 +6,14 @@ public class Game
 {
     private readonly IConsoleHandler _consoleHandler;
     private readonly HumanPlayer _humanPlayer;
+    private readonly Bot _bot;
     private int TurnsRemaining { get; set; }
 
-    public Game(IConsoleHandler consoleHandler, HumanPlayer humanPlayer)
+    public Game(IConsoleHandler consoleHandler, HumanPlayer humanPlayer, Bot bot)
     {
         _consoleHandler = consoleHandler;
         _humanPlayer = humanPlayer;
+        _bot = bot;
         TurnsRemaining = 15; // numb of categories
     }
 
@@ -25,16 +27,16 @@ public class Game
     {
         while (TurnsRemaining > 0)
         {
-            _humanPlayer.StartPlayerTurn();
+            _bot.StartPlayerTurn();
             
             if (_consoleHandler.WantToQuit(TurnsRemaining)) break;
             
-            _humanPlayer.ChooseWhatToDoWithDice(_consoleHandler, _humanPlayer.DiceRolls);
+            _bot.ChooseWhatToDoWithDice(_consoleHandler, _bot.DiceRolls);
             
-            _humanPlayer.ChooseCategoryToPlay(_consoleHandler);
+            _bot.ChooseCategoryToPlay(_consoleHandler);
 
             TurnsRemaining--;
         }
-        _consoleHandler.ShowOutro(_humanPlayer.Score);
+        _consoleHandler.ShowOutro(_bot.Score);
     }
 }

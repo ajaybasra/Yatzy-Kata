@@ -41,7 +41,7 @@ public class ConsoleHandler : IConsoleHandler
             diceRollsString += $"Dice {i + 1}: {diceRolls[i]}\n";
         }
         _writer.WriteLine("");
-        _writer.WriteLine("Below are the dice which you have rolled:");
+        _writer.WriteLine("Rolled Dice:");
         _writer.WriteLine(diceRollsString);
     }
 
@@ -113,5 +113,25 @@ public class ConsoleHandler : IConsoleHandler
         _writer.WriteLine("");
         _writer.WriteLine("");
         _writer.WriteLine($"GG! Your final score was {score}, hope you had fun!");
+    }
+
+    public void BotRolledDice()
+    {
+        _writer.WriteLine("The bot has rolled the following dice:");
+    }
+
+    public void BotDoesNotReRoll()
+    {
+        _writer.WriteLine("🤖Beep boop! The bot does not re-roll the dice as it is superior, instead it goes directly to the category stage!");
+    }
+
+    public void BotChoosesCategory(string chosenCategory)
+    {
+        _writer.WriteLine($"The bot has chosen to play the {chosenCategory} category.");
+    }
+
+    public void BotScore(int score)
+    {
+        _writer.WriteLine($"The bots current score is {score}! Not too shabby.");
     }
 };
