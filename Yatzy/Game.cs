@@ -22,9 +22,22 @@ public class Game
     public void Initialize()
     {
         _consoleHandler.ShowIntro();
-        ListOfPlayers.Add(_humanPlayer);
-        ListOfPlayers.Add(_bot);
+        var (numberOfHumans, numberOfBots) = _consoleHandler.GetNumberOfHumansAndBots();
+        AddPlayersToGame(numberOfHumans, numberOfBots);
         Play();
+    }
+
+    private void AddPlayersToGame(int numberOfHumans, int numberOfBots)
+    {
+        for (var i = 0; i < numberOfHumans; i++)
+        {
+            ListOfPlayers.Add(new HumanPlayer(new DiceRoll(new RNG()), new PlayerCategories(new CategoryScoreCalculator())) {Name = $"Player {i + 1}"});
+        }
+        
+        for (var i = 0; i < numberOfBots; i++)
+        {
+            ListOfPlayers.Add(new Bot(new DiceRoll(new RNG()), new PlayerCategories(new CategoryScoreCalculator())) {Name = $"Bot {i + 1}"});
+        }
     }
 
     private void Play()
@@ -46,6 +59,6 @@ public class Game
         }
         _consoleHandler.ShowOutro(_bot.Score);
         _consoleHandler.FinalScores(ListOfPlayers);
-        _consoleHandler.Winner(ListOfPlayers);
+        
     }
 }

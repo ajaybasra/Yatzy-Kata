@@ -142,10 +142,17 @@ public class ConsoleHandler : IConsoleHandler
         {
             _writer.WriteLine($"{player.Name} ({player.Type.ToString()}) scored {player.Score} 👏 ");
         }
+        _writer.WriteLine($"The winner is {playerList.MaxBy(player => player.Score).Name} 🥳");
     }
 
-    public void Winner(List<IPlayer> playerList)
+    public (int, int) GetNumberOfHumansAndBots()
     {
-        Console.WriteLine($"The winner is {playerList.MaxBy(player => player.Score).Name} 🥳");
+        _writer.WriteLine("");
+        _writer.WriteLine("How many human players would like to play?");
+        var numberOfHumans = int.Parse(_reader.ReadLine());
+        _writer.WriteLine("How many bots would you like to add to the game?");
+        var numberOfBots = int.Parse(_reader.ReadLine());
+        return (numberOfHumans, numberOfBots);
     }
+
 };
