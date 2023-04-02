@@ -148,11 +148,24 @@ public class ConsoleHandler : IConsoleHandler
     public (int, int) GetNumberOfHumansAndBots()
     {
         _writer.WriteLine("");
-        _writer.WriteLine("How many human players would like to play?");
-        var numberOfHumans = int.Parse(_reader.ReadLine());
-        _writer.WriteLine("How many bots would you like to add to the game?");
-        var numberOfBots = int.Parse(_reader.ReadLine());
-        return (numberOfHumans, numberOfBots);
+        _writer.Write("How many human players would like to play? ");
+        var numberOfHumansInput = _reader.ReadLine().Trim();
+        while (!Validator.NumberOfHumansChosenIsValid(numberOfHumansInput))
+        {
+            _writer.Write("Enter an integer that is in the range 1-4 (inclusive)!: ");
+            numberOfHumansInput = _reader.ReadLine().Trim();
+        }
+
+        _writer.Write("How many bots would you like to add to the game? ");
+        var numberOfBotsInput = _reader.ReadLine().Trim();
+        while (!Validator.NumberOfBotsChosenIsValid(numberOfBotsInput))
+        {
+            _writer.Write("Enter an integer that is in the range 0-2 (inclusive)!: ");
+            numberOfBotsInput = _reader.ReadLine().Trim();
+        }
+        return (int.Parse(numberOfHumansInput), int.Parse(numberOfBotsInput));
     }
+    
+
 
 };

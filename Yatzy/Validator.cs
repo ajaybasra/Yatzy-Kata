@@ -16,4 +16,14 @@ public static class Validator
     {
         return int.TryParse(chosenCategory, out var categoryNumber) && categoryNumber > 0 && categoryNumber <= categories.Count;
     }
+
+    public static bool NumberOfHumansChosenIsValid(string chosenNumberOfHumans)
+    {
+        return int.TryParse(chosenNumberOfHumans, out var chosenNumberOfHumansAsInt) && chosenNumberOfHumansAsInt is > 0 and < 5;
+    }
+    
+    public static bool NumberOfBotsChosenIsValid(string chosenNumberOfBots)
+    {
+        return int.TryParse(chosenNumberOfBots, out var chosenNumberOfBotsAsInt) && chosenNumberOfBotsAsInt is >= 0 and <= 2;
+    }
 }
