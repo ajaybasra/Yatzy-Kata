@@ -20,7 +20,7 @@ public interface IConsoleHandler
     public int GetCategory(List<Category> categories);
 
     public void ShowScore(int score);
-    public void ShowOutro(int score);
+    public void ShowOutro();
     public void BotRolledDice();
     public void BotDoesNotReRoll();
     public void BotChoosesCategory(string chosenCategory);

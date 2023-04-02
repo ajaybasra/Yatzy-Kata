@@ -108,7 +108,7 @@ public class ConsoleHandler : IConsoleHandler
         _writer.WriteLine("");
         _writer.Write($"Your current score is {score}, keep it up!");
     }
-    public void ShowOutro(int score)
+    public void ShowOutro()
     {
         _writer.WriteLine("");
         _writer.WriteLine("");

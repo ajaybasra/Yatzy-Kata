@@ -5,17 +5,13 @@ namespace Yatzy;
 public class Game
 {
     private readonly IConsoleHandler _consoleHandler;
-    private readonly HumanPlayer _humanPlayer;
-    private readonly Bot _bot;
     public List<IPlayer> ListOfPlayers { get; set; }
     private int TurnsRemaining { get; set; }
 
-    public Game(IConsoleHandler consoleHandler, HumanPlayer humanPlayer, Bot bot)
+    public Game(IConsoleHandler consoleHandler)
     {
         _consoleHandler = consoleHandler;
         ListOfPlayers = new List<IPlayer>() {};
-        _humanPlayer = humanPlayer;
-        _bot = bot;
         TurnsRemaining = 15; // numb of categories
     }
     
@@ -57,7 +53,7 @@ public class Game
 
             TurnsRemaining--;
         }
-        _consoleHandler.ShowOutro(_bot.Score);
+        _consoleHandler.ShowOutro();
         _consoleHandler.FinalScores(ListOfPlayers);
         
     }
