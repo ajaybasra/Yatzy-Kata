@@ -30,7 +30,7 @@ public class PlayerCategoriesTests
     [MemberData(nameof(GetCategoryAndDiceRolls))]
     public void PlaceRollsInCategory_ShouldReturnCorrectScoreForCategoryWhichHasRollPlacedInIt_WhenCalled(Category category, int[] diceRolls, int expected)
     {
-       var scoreForCategory = _playerCategories.PlaceRollsInCategory(category, diceRolls);
+       var scoreForCategory = _playerCategories.GetScoreForPlacingRollInCategory(category, diceRolls);
        
        Assert.Equal(expected, scoreForCategory);
     }

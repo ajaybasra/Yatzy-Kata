@@ -45,7 +45,7 @@ public class Bot : IPlayer
     {
         var chosenCategory = PlayerCategories.GetCategoryWhichReturnsHighestScore(DiceRolls.GetDiceRolls());
         consoleHandler.BotChoosesCategory(chosenCategory.ToString());
-        AddToPlayScore(PlayerCategories.PlaceRollsInCategory(chosenCategory, DiceRolls.GetDiceRolls()));
+        AddToPlayScore(PlayerCategories.GetScoreForPlacingRollInCategory(chosenCategory, DiceRolls.GetDiceRolls()));
         PlayerCategories.RemoveCategory(chosenCategory);
         consoleHandler.BotScore(Score);
     }

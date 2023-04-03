@@ -57,7 +57,7 @@ public class HumanPlayer : IPlayer
         consoleHandler.ShowCategories(PlayerCategories.ListOfCategories);
         var chosenCategoryIndex = consoleHandler.GetCategory(PlayerCategories.ListOfCategories);
         var chosenCategory = PlayerCategories.ListOfCategories[chosenCategoryIndex];
-        AddToPlayScore(PlayerCategories.PlaceRollsInCategory(chosenCategory, DiceRolls.GetDiceRolls()));
+        AddToPlayScore(PlayerCategories.GetScoreForPlacingRollInCategory(chosenCategory, DiceRolls.GetDiceRolls()));
         PlayerCategories.RemoveCategory(chosenCategory);
         consoleHandler.ShowScore(Score);
     }
