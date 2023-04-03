@@ -5,12 +5,14 @@ namespace Yatzy;
 public class Game
 {
     private readonly IConsoleHandler _consoleHandler;
-    public List<IPlayer> ListOfPlayers { get; set; }
+    private IPlayerFactory _playerFactory;
+    private List<IPlayer> ListOfPlayers { get; set; }
     private int TurnsRemaining { get; set; }
 
-    public Game(IConsoleHandler consoleHandler)
+    public Game(IConsoleHandler consoleHandler, IPlayerFactory playerFactory)
     {
         _consoleHandler = consoleHandler;
+        _playerFactory = playerFactory;
         ListOfPlayers = new List<IPlayer>() {};
         TurnsRemaining = 15; // numb of categories
     }
@@ -27,12 +29,12 @@ public class Game
     {
         for (var i = 0; i < numberOfHumans; i++)
         {
-            ListOfPlayers.Add(new HumanPlayer(new DiceRoll(new RNG()), new PlayerCategories(new CategoryScoreCalculator())) {Name = $"Player {i + 1}"});
+            ListOfPlayers.Add(_playerFactory.CreateHuman(i));
         }
         
         for (var i = 0; i < numberOfBots; i++)
         {
-            ListOfPlayers.Add(new Bot(new DiceRoll(new RNG()), new PlayerCategories(new CategoryScoreCalculator())) {Name = $"Bot {i + 1}"});
+            ListOfPlayers.Add(_playerFactory.CreateBot(i));
         }
     }
 
