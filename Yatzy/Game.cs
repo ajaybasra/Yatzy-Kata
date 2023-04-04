@@ -5,11 +5,11 @@ namespace Yatzy;
 public class Game
 {
     private readonly IConsoleHandler _consoleHandler;
-    private IPlayerFactory _playerFactory;
+    private readonly IPlayerFactory _playerFactory;
     private List<IPlayer> ListOfPlayers { get; set; }
     private int TurnsRemaining { get; set; }
 
-    public Game(IConsoleHandler consoleHandler, IPlayerFactory playerFactory)
+    public Game(IConsoleHandler consoleHandler, IPlayerFactory playerFactory) //ask
     {
         _consoleHandler = consoleHandler;
         _playerFactory = playerFactory;
@@ -27,15 +27,8 @@ public class Game
 
     private void AddPlayersToGame(int numberOfHumans, int numberOfBots)
     {
-        for (var i = 0; i < numberOfHumans; i++)
-        {
-            ListOfPlayers.Add(_playerFactory.CreateHuman(i));
-        }
-        
-        for (var i = 0; i < numberOfBots; i++)
-        {
-            ListOfPlayers.Add(_playerFactory.CreateBot(i));
-        }
+        ListOfPlayers.AddRange(_playerFactory.CreateHumans(numberOfHumans));
+        ListOfPlayers.AddRange(_playerFactory.CreateBots(numberOfBots));
     }
 
     private void Play()

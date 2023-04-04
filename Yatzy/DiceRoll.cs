@@ -38,13 +38,7 @@ public class DiceRoll : IDiceRoller
 
     public int[] GetDiceRolls()
     {
-        var arrayOfDice = new List<int>();
-        foreach (var die in Dice) // convert to linq expression
-        {
-            arrayOfDice.Add(die.DieValue);
-        }
-
-        return arrayOfDice.ToArray();
+        return Dice.Select(die => die.DieValue).ToArray();
     }
 
     public void HoldDice(int[] diceIndices)

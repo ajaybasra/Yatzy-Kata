@@ -5,7 +5,7 @@ namespace Yatzy;
 public class PlayerCategories
 {
     public readonly List<Category> ListOfCategories = Enum.GetValues(typeof(Category)).Cast<Category>().ToList();
-    public readonly CategoryScoreCalculator _categoryScoreCalculator;
+    private readonly CategoryScoreCalculator _categoryScoreCalculator;
 
     public PlayerCategories(CategoryScoreCalculator categoryScoreCalculator)
     {
@@ -14,7 +14,7 @@ public class PlayerCategories
 
     public int GetScoreForPlacingRollInCategory(Category category, int[] diceRolls)
     {
-        var CategoriesToScoreCalculatorDictionary = new Dictionary<Category, int>()
+        var categoriesToScoreCalculatorDictionary = new Dictionary<Category, int>()
         {
             {Category.Chance, _categoryScoreCalculator.GetChanceScore(diceRolls)},
             {Category.Yatzy, _categoryScoreCalculator.GetYatzyScore(diceRolls)},
@@ -33,7 +33,7 @@ public class PlayerCategories
             {Category.FullHouse, _categoryScoreCalculator.GetFullHouseScore(diceRolls)}
         };
 
-        return CategoriesToScoreCalculatorDictionary[category];
+        return categoriesToScoreCalculatorDictionary[category];
     }
 
     // public int PlaceRollsInCategory(Category category, int[] diceRolls) 
