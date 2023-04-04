@@ -70,8 +70,8 @@ public class DiceTests
         
         _diceRoll.HoldDice(new[] {0, 4});
         _diceRoll.RollDice();
-        var actualFirstValue = _diceRoll.Dice[0].DieValue;
-        var actualLastValue = _diceRoll.Dice[4].DieValue;
+        var actualFirstValue = _diceRoll.GetDiceRolls()[0];
+        var actualLastValue = _diceRoll.GetDiceRolls()[4];
         
         Assert.Equal(originalFirstValue, actualFirstValue);
         Assert.Equal(originalLastValue, actualLastValue);

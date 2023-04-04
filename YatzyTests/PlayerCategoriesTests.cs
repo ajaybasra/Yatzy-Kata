@@ -28,7 +28,7 @@ public class PlayerCategoriesTests
     
     [Theory]
     [MemberData(nameof(GetCategoryAndDiceRolls))]
-    public void PlaceRollsInCategory_ShouldReturnCorrectScoreForCategoryWhichHasRollPlacedInIt_WhenCalled(Category category, int[] diceRolls, int expected)
+    public void GetScoreForPlacingRollInCategory_ShouldReturnCorrectScoreForCategoryWhichHasRollPlacedInIt_WhenCalled(Category category, int[] diceRolls, int expected)
     {
        var scoreForCategory = _playerCategories.GetScoreForPlacingRollInCategory(category, diceRolls);
        
@@ -77,5 +77,17 @@ public class PlayerCategoriesTests
     public void GetCategoryWhichReturnsHighestScore_ReturnsCategoryWhichGivesHighestScoreForGivenRoll_WhenCalled(int[] diceRoll, Category expectedCategory)
     {
         Assert.Equal(expectedCategory, _playerCategories.GetCategoryWhichReturnsHighestScore(diceRoll));
+    }
+
+    [Fact]
+    public void GetCategoriesListSize_ReturnsCorrectValues_WhenCalled()
+    {
+        Assert.Equal(15, _playerCategories.GetCategoriesListSize());
+        
+        _playerCategories.RemoveCategory(Category.Chance);
+        Assert.Equal(14, _playerCategories.GetCategoriesListSize());
+        
+        _playerCategories.ListOfCategories.Clear();
+        Assert.Equal(0, _playerCategories.GetCategoriesListSize());
     }
 }
