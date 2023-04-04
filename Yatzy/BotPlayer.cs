@@ -3,7 +3,7 @@ using Yatzy.Interfaces;
 
 namespace Yatzy;
 
-public class Bot : IPlayer
+public class BotPlayer : IPlayer
 {
     public string Name { get; set; }
     public PlayerType Type { get; set; }
@@ -11,7 +11,7 @@ public class Bot : IPlayer
     public DiceRoll DiceRolls { get; set; }
     public PlayerCategories PlayerCategories { get; set; }
 
-    public Bot(DiceRoll diceRolls, PlayerCategories playerCategories)
+    public BotPlayer(DiceRoll diceRolls, PlayerCategories playerCategories)
     {
         Type = PlayerType.Bot;
         DiceRolls = diceRolls;

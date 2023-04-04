@@ -2,6 +2,6 @@ namespace Yatzy.Interfaces;
 
 public interface IPlayerFactory
 {
-    public List<IPlayer> CreateHumans(int numberOfHumans);
-    public List<IPlayer> CreateBots(int numberOfBots);
+    public List<IPlayer> CreateHumanPlayers(int numberOfHumans);
+    public List<IPlayer> CreateBotPlayers(int numberOfBots);
 }

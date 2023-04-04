@@ -4,7 +4,7 @@ namespace Yatzy;
 
 public class PlayerFactory : IPlayerFactory
 {
-    public List<IPlayer> CreateHumans(int numberOfHumans)
+    public List<IPlayer> CreateHumanPlayers(int numberOfHumans)
     {
         var listOfHumans = new List<IPlayer>();
         for (var i = 0; i < numberOfHumans; i++)
@@ -16,13 +16,13 @@ public class PlayerFactory : IPlayerFactory
         return listOfHumans;
     }
 
-    public List<IPlayer> CreateBots(int numberOfBots)
+    public List<IPlayer> CreateBotPlayers(int numberOfBots)
     {
         var listOfBots = new List<IPlayer>();
         for (var i = 0; i < numberOfBots; i++)
         {
-            listOfBots.Add(new Bot(new DiceRoll(new RNG()), new PlayerCategories(new CategoryScoreCalculator()))
-                { Name = $"Bot {i + 1}" });
+            listOfBots.Add(new BotPlayer(new DiceRoll(new RNG()), new PlayerCategories(new CategoryScoreCalculator()))
+                { Name = $"Computer {i + 1}" });
         }
 
         return listOfBots;

@@ -27,8 +27,8 @@ public class Game
 
     private void AddPlayersToGame(int numberOfHumans, int numberOfBots)
     {
-        ListOfPlayers.AddRange(_playerFactory.CreateHumans(numberOfHumans));
-        ListOfPlayers.AddRange(_playerFactory.CreateBots(numberOfBots));
+        ListOfPlayers.AddRange(_playerFactory.CreateHumanPlayers(numberOfHumans));
+        ListOfPlayers.AddRange(_playerFactory.CreateBotPlayers(numberOfBots));
     }
 
     private void Play()
