@@ -6,7 +6,7 @@ public class Game
 {
     private readonly IConsoleHandler _consoleHandler;
     private readonly IPlayerFactory _playerFactory;
-    private List<IPlayer> ListOfPlayers { get; set; }
+    public List<IPlayer> ListOfPlayers { get; }
     private int TurnsRemaining { get; set; }
 
     public Game(IConsoleHandler consoleHandler, IPlayerFactory playerFactory) //ask
