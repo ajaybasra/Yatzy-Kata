@@ -84,7 +84,7 @@ public class PlayerTests
         var actualLastValue = humanPlayer.DiceRolls.GetDiceRolls()[4];
         
         Assert.Equal(originalFirstValue, actualFirstValue);
-        Assert.Equal(actualLastValue, actualLastValue);
+        Assert.Equal(originalLastValue, actualLastValue);
     }
 
     [Fact]
