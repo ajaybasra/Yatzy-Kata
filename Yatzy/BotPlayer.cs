@@ -19,7 +19,7 @@ public class BotPlayer : IPlayer
     }
     public void StartPlayerTurn()
     {
-        DiceRolls.SetNumberOfRolls(3);
+        DiceRolls.SetNumberOfRolls(Constants.StartingNumberOfRolls);
         
         foreach (var die in DiceRolls.Dice)
         {

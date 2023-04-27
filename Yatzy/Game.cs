@@ -14,7 +14,7 @@ public class Game
         _consoleHandler = consoleHandler;
         _playerFactory = playerFactory;
         ListOfPlayers = new List<IPlayer>() {};
-        TurnsRemaining = 15; // numb of categories
+        TurnsRemaining = Constants.TotalNumberOfRounds; // numb of categories
     }
     
     public void Initialize()

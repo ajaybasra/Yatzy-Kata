@@ -22,7 +22,7 @@ public class ConsoleHandler : IConsoleHandler
 
     public bool WantToQuit(int remainingRounds)
     {
-        var currentRound = 15 - remainingRounds + 1;
+        var currentRound = Constants.TotalNumberOfRounds - remainingRounds + 1;
         _writer.WriteLine("");
         _writer.WriteLine("");
         _writer.WriteLine($"It is currently  round {currentRound}.");
