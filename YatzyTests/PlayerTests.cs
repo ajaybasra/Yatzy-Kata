@@ -7,17 +7,17 @@ namespace YatzyTests;
 
 public class PlayerTests
 {
-    private readonly DiceRoll _diceRoll;
+    private readonly DiceRoller _diceRoller;
     private readonly HumanPlayer _humanPlayer;
     private readonly CategoryScoreCalculator _categoryScoreCalculator;
     private readonly PlayerCategories _playerCategories;
 
     public PlayerTests()
     {
-        _diceRoll = new DiceRoll(new RNG());
+        _diceRoller = new DiceRoller(new RNG());
         _categoryScoreCalculator = new CategoryScoreCalculator();
         _playerCategories = new PlayerCategories(_categoryScoreCalculator);
-        _humanPlayer = new HumanPlayer(_diceRoll, _playerCategories);
+        _humanPlayer = new HumanPlayer(_diceRoller, _playerCategories);
     }
 
     [Fact]
@@ -29,14 +29,14 @@ public class PlayerTests
     [Fact]
     public void GivenAPlayer_AtStartOfGame_ShouldBeAssignedFiveDice()
     {
-        var humanPlayer = new HumanPlayer(new DiceRoll(new RNG()), new PlayerCategories(new CategoryScoreCalculator()));
-        Assert.Equal(5, humanPlayer.DiceRolls.Dice.Count);
+        var humanPlayer = new HumanPlayer(new DiceRoller(new RNG()), new PlayerCategories(new CategoryScoreCalculator()));
+        Assert.Equal(5, humanPlayer.DiceRollers.Dice.Count);
     }
     
     [Fact]
     public void GivenAPlayer_AtStartOfGame_ShouldBeAssignedFifteenCategories()
     {
-        var humanPlayer = new HumanPlayer(new DiceRoll(new RNG()), new PlayerCategories(new CategoryScoreCalculator()));
+        var humanPlayer = new HumanPlayer(new DiceRoller(new RNG()), new PlayerCategories(new CategoryScoreCalculator()));
         Assert.Equal(15, humanPlayer.PlayerCategories.GetCategoriesListSize());
     }
 
@@ -44,13 +44,13 @@ public class PlayerTests
     public void StartTurn_ShouldResetIsHeldToFalseAndRolls_WhenNewTurn()
     {
         _humanPlayer.StartPlayerTurn();
-        _humanPlayer.DiceRolls.DecrementRollsLeft();
-        _humanPlayer.DiceRolls.HoldDice(new int[] {0,1});
+        _humanPlayer.DiceRollers.DecrementRollsLeft();
+        _humanPlayer.DiceRollers.HoldDice(new int[] {0,1});
         _humanPlayer.StartPlayerTurn();
         
-        Assert.Equal(2, _humanPlayer.DiceRolls.NumberOfRollsLeft);
-        Assert.False(_humanPlayer.DiceRolls.Dice[0].IsHeld);
-        Assert.False(_humanPlayer.DiceRolls.Dice[1].IsHeld);
+        Assert.Equal(2, _humanPlayer.DiceRollers.NumberOfRollsLeft);
+        Assert.False(_humanPlayer.DiceRollers.Dice[0].IsHeld);
+        Assert.False(_humanPlayer.DiceRollers.Dice[1].IsHeld);
     }
 
     [Fact]
@@ -71,17 +71,17 @@ public class PlayerTests
         mockConsoleHandler.SetupSequence(console => console.GetDiceToHold()).Returns("1,5");
         
         var playerCategories = new PlayerCategories(new CategoryScoreCalculator());
-        var diceRoll = new DiceRoll(new RNG());
+        var diceRoll = new DiceRoller(new RNG());
         var humanPlayer = new HumanPlayer(diceRoll, playerCategories);
         
-        var arrayOfDiceRolls = humanPlayer.DiceRolls.GetDiceRolls();
+        var arrayOfDiceRolls = humanPlayer.DiceRollers.GetDiceRolls();
         var originalFirstValue = arrayOfDiceRolls[0];
         var originalLastValue = arrayOfDiceRolls[4];
         
         humanPlayer.ChooseWhatToDoWithDice(mockConsoleHandler.Object, diceRoll);
         
-        var actualFirstValue = humanPlayer.DiceRolls.GetDiceRolls()[0];
-        var actualLastValue = humanPlayer.DiceRolls.GetDiceRolls()[4];
+        var actualFirstValue = humanPlayer.DiceRollers.GetDiceRolls()[0];
+        var actualLastValue = humanPlayer.DiceRollers.GetDiceRolls()[4];
         
         Assert.Equal(originalFirstValue, actualFirstValue);
         Assert.Equal(originalLastValue, actualLastValue);
@@ -95,7 +95,7 @@ public class PlayerTests
 
         
         var playerCategories = new PlayerCategories(new CategoryScoreCalculator());
-        var diceRoll = new DiceRoll(new RNG());
+        var diceRoll = new DiceRoller(new RNG());
         var humanPlayer = new HumanPlayer(diceRoll, playerCategories);
         
         humanPlayer.ChooseCategoryToPlay(mockConsoleHandler.Object);

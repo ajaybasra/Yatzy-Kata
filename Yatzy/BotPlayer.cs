@@ -8,25 +8,25 @@ public class BotPlayer : IPlayer
     public string Name { get; set; }
     public PlayerType Type { get; set; }
     public int Score { get; set; }
-    public DiceRoll DiceRolls { get; set; }
+    public DiceRoller DiceRollers { get; set; }
     public PlayerCategories PlayerCategories { get; set; }
 
-    public BotPlayer(DiceRoll diceRolls, PlayerCategories playerCategories)
+    public BotPlayer(DiceRoller diceRollers, PlayerCategories playerCategories)
     {
         Type = PlayerType.Bot;
-        DiceRolls = diceRolls;
+        DiceRollers = diceRollers;
         PlayerCategories = playerCategories;
     }
     public void StartPlayerTurn()
     {
-        DiceRolls.SetNumberOfRolls(Constants.StartingNumberOfRolls);
+        DiceRollers.SetNumberOfRolls(Constants.StartingNumberOfRolls);
         
-        foreach (var die in DiceRolls.Dice)
+        foreach (var die in DiceRollers.Dice)
         {
             die.IsHeld = false;
         }
         
-        DiceRolls.RollDice();
+        DiceRollers.RollDice();
     }
 
     public void AddToPlayScore(int points)
@@ -34,18 +34,18 @@ public class BotPlayer : IPlayer
         Score += points;
     }
 
-    public void ChooseWhatToDoWithDice(IConsoleHandler consoleHandler, DiceRoll diceRolls)
+    public void ChooseWhatToDoWithDice(IConsoleHandler consoleHandler, DiceRoller diceRollers)
     {
         consoleHandler.BotRolledDice();
-        consoleHandler.ShowDiceRolls(diceRolls.GetDiceRolls());
+        consoleHandler.ShowDiceRolls(diceRollers.GetDiceRolls());
         consoleHandler.BotDoesNotReRoll();
     }
 
     public void ChooseCategoryToPlay(IConsoleHandler consoleHandler)
     {
-        var chosenCategory = PlayerCategories.GetCategoryWhichReturnsHighestScore(DiceRolls.GetDiceRolls());
+        var chosenCategory = PlayerCategories.GetCategoryWhichReturnsHighestScore(DiceRollers.GetDiceRolls());
         consoleHandler.BotChoosesCategory(chosenCategory.ToString());
-        AddToPlayScore(PlayerCategories.GetScoreForPlacingRollInCategory(chosenCategory, DiceRolls.GetDiceRolls()));
+        AddToPlayScore(PlayerCategories.GetScoreForPlacingRollInCategory(chosenCategory, DiceRollers.GetDiceRolls()));
         PlayerCategories.RemoveCategory(chosenCategory);
         consoleHandler.BotScore(Score);
     }

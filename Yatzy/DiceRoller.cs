@@ -2,12 +2,12 @@ using Yatzy.Interfaces;
 
 namespace Yatzy;
 
-public class DiceRoll : IDiceRoller
+public class DiceRoller : IDiceRoller
 {
     public List<Die> Dice { get; }
     public int NumberOfRollsLeft { get; private set; }
 
-    public DiceRoll(IRandomNumberGenerator rng)
+    public DiceRoller(IRandomNumberGenerator rng)
     {
         DecrementRollsLeft();
         Dice = new List<Die>()

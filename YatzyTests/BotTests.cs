@@ -13,7 +13,7 @@ public class BotTests
     {
         
         var playerCategories = new PlayerCategories(new CategoryScoreCalculator());
-        var diceRoll = new DiceRoll(new RNG());
+        var diceRoll = new DiceRoller(new RNG());
         var consoleHandler = new ConsoleHandler(new Reader(), new Writer());
         var botPlayer = new BotPlayer(diceRoll, playerCategories);
 
@@ -36,7 +36,7 @@ public class BotTests
         mockRng.Setup(x => x.GetRandomNumber()).Returns(1);
         
         var playerCategories = new PlayerCategories(new CategoryScoreCalculator());
-        var diceRoll = new DiceRoll(mockRng.Object);
+        var diceRoll = new DiceRoller(mockRng.Object);
         var consoleHandler = new ConsoleHandler(new Reader(), new Writer());
         var botPlayer = new BotPlayer(diceRoll, playerCategories);
 
@@ -56,7 +56,7 @@ public class BotTests
     public void ChooseWhatToDoWithDice_ShouldCallConsoleMethodsAppropriateAmountOfTimes_WhenCalled()
     {
         var playerCategories = new PlayerCategories(new CategoryScoreCalculator());
-        var diceRoll = new DiceRoll(new RNG());
+        var diceRoll = new DiceRoller(new RNG());
         var mockConsoleHandler = new Mock<IConsoleHandler>();
         var botPlayer = new BotPlayer(diceRoll, playerCategories);
         

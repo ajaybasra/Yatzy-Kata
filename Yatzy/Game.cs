@@ -41,7 +41,7 @@ public class Game
             {
                 player.StartPlayerTurn();
                 
-                player.ChooseWhatToDoWithDice(_consoleHandler, player.DiceRolls);
+                player.ChooseWhatToDoWithDice(_consoleHandler, player.DiceRollers);
             
                 player.ChooseCategoryToPlay(_consoleHandler);
             }

@@ -8,26 +8,26 @@ public class HumanPlayer : IPlayer
     public string Name { get; set; }
     public PlayerType Type { get; set; }
     public int Score { get; set; }
-    public DiceRoll DiceRolls { get; set; }
+    public DiceRoller DiceRollers { get; set; }
     public PlayerCategories PlayerCategories { get; set; }
 
-    public HumanPlayer(DiceRoll diceRolls, PlayerCategories playerCategories)
+    public HumanPlayer(DiceRoller diceRollers, PlayerCategories playerCategories)
     {
         Type = PlayerType.Human;
-        DiceRolls = diceRolls;
+        DiceRollers = diceRollers;
         PlayerCategories = playerCategories;
     }
 
     public void StartPlayerTurn()
     {
-        DiceRolls.SetNumberOfRolls(Constants.StartingNumberOfRolls);
+        DiceRollers.SetNumberOfRolls(Constants.StartingNumberOfRolls);
         
-        foreach (var die in DiceRolls.Dice)
+        foreach (var die in DiceRollers.Dice)
         {
             die.IsHeld = false;
         }
         
-        DiceRolls.RollDice();
+        DiceRollers.RollDice();
     }
 
     public void AddToPlayScore(int points)
@@ -35,20 +35,20 @@ public class HumanPlayer : IPlayer
         Score += points;
     }
 
-    public void ChooseWhatToDoWithDice(IConsoleHandler consoleHandler, DiceRoll diceRolls)
+    public void ChooseWhatToDoWithDice(IConsoleHandler consoleHandler, DiceRoller diceRollers)
     {
-        while (diceRolls.IsRollsLeft())
+        while (diceRollers.IsRollsLeft())
         {
-            consoleHandler.ShowDiceRolls(diceRolls.GetDiceRolls());
-            if (!consoleHandler.WantToReRoll(diceRolls.GetNumberOfRollsLeft())) break;
+            consoleHandler.ShowDiceRolls(diceRollers.GetDiceRolls());
+            if (!consoleHandler.WantToReRoll(diceRollers.GetNumberOfRollsLeft())) break;
             if (consoleHandler.WantToHold())
             {
                 var diceToHold = consoleHandler.GetDiceToHold().Split(",");
                 var diceToHoldAsInts = Array.ConvertAll(diceToHold, x => int.Parse(x) - 1);
-                diceRolls.HoldDice(diceToHoldAsInts);
+                diceRollers.HoldDice(diceToHoldAsInts);
             }
-            diceRolls.RollDice();
-            if (diceRolls.GetNumberOfRollsLeft() == 0) consoleHandler.ShowDiceRolls(diceRolls.GetDiceRolls());
+            diceRollers.RollDice();
+            if (diceRollers.GetNumberOfRollsLeft() == 0) consoleHandler.ShowDiceRolls(diceRollers.GetDiceRolls());
         }
     }
 
@@ -57,7 +57,7 @@ public class HumanPlayer : IPlayer
         consoleHandler.ShowCategories(PlayerCategories.ListOfCategories);
         var chosenCategoryIndex = consoleHandler.GetCategory(PlayerCategories.ListOfCategories);
         var chosenCategory = PlayerCategories.ListOfCategories[chosenCategoryIndex];
-        AddToPlayScore(PlayerCategories.GetScoreForPlacingRollInCategory(chosenCategory, DiceRolls.GetDiceRolls()));
+        AddToPlayScore(PlayerCategories.GetScoreForPlacingRollInCategory(chosenCategory, DiceRollers.GetDiceRolls()));
         PlayerCategories.RemoveCategory(chosenCategory);
         consoleHandler.ShowScore(Score);
     }

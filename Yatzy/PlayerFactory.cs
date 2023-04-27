@@ -9,7 +9,7 @@ public class PlayerFactory : IPlayerFactory
         var listOfHumans = new List<IPlayer>();
         for (var i = 0; i < numberOfHumans; i++)
         {
-            listOfHumans.Add(new HumanPlayer(new DiceRoll(new RNG()), new PlayerCategories(new CategoryScoreCalculator()))
+            listOfHumans.Add(new HumanPlayer(new DiceRoller(new RNG()), new PlayerCategories(new CategoryScoreCalculator()))
                 { Name = $"Player {i + 1}" });
         }
 
@@ -21,7 +21,7 @@ public class PlayerFactory : IPlayerFactory
         var listOfBots = new List<IPlayer>();
         for (var i = 0; i < numberOfBots; i++)
         {
-            listOfBots.Add(new BotPlayer(new DiceRoll(new RNG()), new PlayerCategories(new CategoryScoreCalculator()))
+            listOfBots.Add(new BotPlayer(new DiceRoller(new RNG()), new PlayerCategories(new CategoryScoreCalculator()))
                 { Name = $"Computer {i + 1}" });
         }
 

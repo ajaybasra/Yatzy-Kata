@@ -46,7 +46,7 @@ public class GameTests
     {
         var mockRng = new Mock<IRandomNumberGenerator>();
         mockRng.Setup(x => x.GetRandomNumber()).Returns(1);
-        var diceRoll = new DiceRoll(mockRng.Object);
+        var diceRoll = new DiceRoller(mockRng.Object);
         
         var mockConsoleHandler = new Mock<IConsoleHandler>();
         mockConsoleHandler.SetupSequence(console => console.ShowIntro());
